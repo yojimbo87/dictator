@@ -152,6 +152,18 @@ namespace Dictator
             return (T)GetFieldValue(dictionary, fieldPath);
         }
         
+        public static Dictionary<string, object> Document(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var fieldValue = GetFieldValue(dictionary, fieldPath);
+            
+            if (!(fieldValue is Dictionary<string, object>))
+            {
+                throw new InvalidFieldTypeException(string.Format("Field path '{0}' value does not contain Dictionary<string, object> type.", fieldPath));
+            }
+            
+            return (Dictionary<string, object>)fieldValue;
+        }
+        
         public static T Enum<T>(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var type = typeof(T);
@@ -306,6 +318,13 @@ namespace Dictator
             return dictionary;
         }
         
+        public static Dictionary<string, object> Document(this Dictionary<string, object> dictionary, string fieldPath, Dictionary<string, object> fieldValue)
+        {
+            SetFieldValue(dictionary, fieldPath, fieldValue);
+            
+            return dictionary;
+        }
+        
         public static Dictionary<string, object> Enum<T>(this Dictionary<string, object> dictionary, string fieldPath, T fieldValue)
         {
             SetFieldValue(dictionary, fieldPath, fieldValue);
@@ -322,7 +341,423 @@ namespace Dictator
         
         #endregion
         
-        // TODO: field checkers - IsNull, IsType, IsString, ...
+        #region Field checkers
+        
+        public static bool Has(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+
+                isValid = true;
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsNull(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                
+                if (fieldValue == null)
+                {
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsNotNull(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                
+                if (fieldValue != null)
+                {
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsBool(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                
+                if (fieldValue is bool)
+                {
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsByte(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                
+                if (fieldValue is byte)
+                {
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsShort(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                
+                if (fieldValue is short)
+                {
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsInt(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                
+                if (fieldValue is int)
+                {
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsLong(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                
+                if (fieldValue is long)
+                {
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsFloat(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                
+                if (fieldValue is float)
+                {
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsDouble(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                
+                if (fieldValue is double)
+                {
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsDecimal(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                
+                if (fieldValue is decimal)
+                {
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsDateTime(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            return IsDateTime(dictionary, fieldPath, Dictator.Settings.DateTimeFormat);
+        }
+        
+        public static bool IsDateTime(this Dictionary<string, object> dictionary, string fieldPath, DateTimeFormat dateTimeFormat)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                
+                switch (dateTimeFormat)
+                {
+                    case DateTimeFormat.String:
+                        if (fieldValue is string)
+                        {
+                            var dateTime = System.DateTime.Parse((string)fieldValue, DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AdjustToUniversal);
+                            
+                            isValid = true;
+                        }
+                        break;
+                    case DateTimeFormat.UnixTimeStamp:
+                        if (fieldValue is long)
+                        {
+                            var dateTime = Dictator.Settings.UnixEpoch.AddSeconds((long)fieldValue);
+                            
+                            isValid = true;
+                        }
+                        break;
+                    default:
+                        if (fieldValue is DateTime)
+                        {
+                            isValid = true;
+                        }
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsString(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                
+                if (fieldValue is string)
+                {
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsObject(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                
+                if (fieldValue != null)
+                {
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsDocument(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                
+                if (fieldValue is Dictionary<string, object>)
+                {
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsEnum(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+            
+                if (fieldValue.GetType().IsEnum)
+                {
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsEnum<T>(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                var type = typeof(T);
+                T fieldEnum;
+            
+                if (fieldValue is Enum)
+                {
+                    fieldEnum = (T)fieldValue;
+                    isValid = true;
+                }
+                else if (fieldValue is int)
+                {
+                    fieldEnum = (T)System.Enum.ToObject(type, (int)fieldValue);
+                    isValid = true;
+                }
+                else if (fieldValue is string)
+                {
+                    fieldEnum = (T)System.Enum.Parse(type, (string)fieldValue, true);
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsList(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+            
+                if (fieldValue.GetType().IsGenericType && (fieldValue is IEnumerable))
+                {
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        #endregion
 
         static object GetFieldValue(Dictionary<string, object> dictionary, string fieldPath)
         {

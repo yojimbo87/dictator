@@ -124,6 +124,17 @@ namespace Dictator.Tests
         
         #endregion
         
+        [Test()]
+        public void Should_set_and_get_document_fields()
+        {
+            var document = Dictator.New();
+            
+            var doc1 = Dictator.New()
+                .Object("document1", document);
+            
+            Assert.IsTrue(doc1.Document("document1") == document);
+        }
+        
         #region DateTime
         
         [Test()]
