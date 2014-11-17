@@ -304,5 +304,42 @@ namespace Dictator.Tests
             Assert.IsFalse(doc1.IsList("nonExistingField"));
             Assert.IsFalse(doc1.IsList("foo.nonExistingField"));
         }
+        
+        [Test()]
+        public void Should_check_field_type_equality()
+        {
+            var doc1 = Dictator.New()
+                .Int("int1", 123456)
+                .String("string1", "test1");
+            
+            Assert.IsTrue(doc1.IsType("int1", 123456.GetType()));
+            Assert.IsTrue(doc1.IsType("string1", "test1".GetType()));
+
+            Assert.IsFalse(doc1.IsType("null1", 123456.GetType()));
+            Assert.IsFalse(doc1.IsType("int1", "test1".GetType()));
+            Assert.IsFalse(doc1.IsType("nonExistingField", "test1".GetType()));
+        }
+        
+        [Test()]
+        public void Should_check_field_value_equality()
+        {
+            var document1 = Dictator.New();
+            
+            var doc1 = Dictator.New()
+                .Object("null1", null)
+                .Int("int1", 123456)
+                .String("string1", "test1")
+                .Document("document1", document1);
+            
+            Assert.IsTrue(doc1.IsEqual("null1", null));
+            Assert.IsTrue(doc1.IsEqual("int1", 123456));
+            Assert.IsTrue(doc1.IsEqual("string1", "test1"));
+            Assert.IsTrue(doc1.IsEqual("document1", document1));
+
+            Assert.IsFalse(doc1.IsEqual("null1", 123456));
+            Assert.IsFalse(doc1.IsEqual("int1", "test1"));
+            Assert.IsFalse(doc1.IsEqual("string1", null));
+            Assert.IsFalse(doc1.IsEqual("nonExistingField", "test1".GetType()));
+        }
     }
 }

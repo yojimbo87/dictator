@@ -757,6 +757,60 @@ namespace Dictator
             return isValid;
         }
         
+        public static bool IsType(this Dictionary<string, object> dictionary, string fieldPath, Type type)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                
+                if (fieldValue != null)
+                {
+                    var fieldType = fieldValue.GetType();
+                    
+                    if (fieldType == type)
+                    {
+                        isValid = true;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        public static bool IsEqual(this Dictionary<string, object> dictionary, string fieldPath, object compareValue)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                
+                if (fieldValue != null)
+                {
+                    if (fieldValue.Equals(compareValue))
+                    {
+                        isValid = true;
+                    }
+                }
+                else if (fieldValue == null && compareValue == null)
+                {
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
         #endregion
 
         static object GetFieldValue(Dictionary<string, object> dictionary, string fieldPath)
