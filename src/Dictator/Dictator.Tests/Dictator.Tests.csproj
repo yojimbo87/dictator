@@ -52,6 +52,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FieldExceptionTests.cs" />
     <Compile Include="FieldGetSetTests.cs" />
   </ItemGroup>
   <ItemGroup>

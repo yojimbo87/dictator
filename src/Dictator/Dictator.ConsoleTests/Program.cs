@@ -8,33 +8,33 @@ namespace Dictator.ConsoleTests
     {
         public static void Main(string[] args)
         {
-        	//DictionaryTest();
-        	ListTest();
-        	
+            //DictionaryTest();
+            ListTest();
+            
             Console.WriteLine("\n\nEND");
             Console.ReadLine();
         }
         
         static void DictionaryTest()
         {
-        	var doc1 = Dictator.New()
-        		.Object("foo.bar.barz", null)
-        		.String("foo.bar.baz.shoe", "barified");
-        	
-        	var doc2 = Dictator.New()
-        		.String("foo.bar.baz.shoe", "barified222");
-        	
-        	doc1.String("foo.bar.buzz", "buzzified");
-        	
-        	Console.WriteLine(doc1);
-        	Console.WriteLine(JSON.ToNiceJSON(doc1, new JSONParameters()));
-        	
-        	Console.WriteLine(doc2);
-        	Console.WriteLine(JSON.ToNiceJSON(doc2, new JSONParameters()));
-        	
-        	var barz = doc1.Object("foo.bar.barz");
-        	Console.WriteLine(doc1.Object("foo.bar.barz"));
-        	Console.WriteLine(doc1.Object("foo.bar.baz"));
+            var doc1 = Dictator.New()
+                .Object("foo.bar.barz", null)
+                .String("foo.bar.baz.shoe", "barified");
+            
+            var doc2 = Dictator.New()
+                .String("foo.bar.baz.shoe", "barified222");
+            
+            doc1.String("foo.bar.buzz", "buzzified");
+            
+            Console.WriteLine(doc1);
+            Console.WriteLine(JSON.ToNiceJSON(doc1, new JSONParameters()));
+            
+            Console.WriteLine(doc2);
+            Console.WriteLine(JSON.ToNiceJSON(doc2, new JSONParameters()));
+            
+            var barz = doc1.Object("foo.bar.barz");
+            Console.WriteLine(doc1.Object("foo.bar.barz"));
+            Console.WriteLine(doc1.Object("foo.bar.baz"));
         }
         
         static void ListTest()
