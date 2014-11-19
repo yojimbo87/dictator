@@ -455,6 +455,9 @@ namespace Dictator
         
         #region Field checkers
         
+        /// <summary>
+        /// Checks if specified field is present within given path.
+        /// </summary>
         public static bool Has(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var isValid = false;
@@ -472,7 +475,9 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has null value.
+        /// </summary>
         public static bool IsNull(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var isValid = false;
@@ -493,7 +498,9 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has not null value.
+        /// </summary>
         public static bool IsNotNull(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var isValid = false;
@@ -514,7 +521,9 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has bool type value.
+        /// </summary>
         public static bool IsBool(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var isValid = false;
@@ -535,7 +544,9 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has byte type value.
+        /// </summary>
         public static bool IsByte(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var isValid = false;
@@ -556,7 +567,9 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has short type value.
+        /// </summary>
         public static bool IsShort(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var isValid = false;
@@ -577,7 +590,9 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has int type value.
+        /// </summary>
         public static bool IsInt(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var isValid = false;
@@ -598,7 +613,9 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has long type value.
+        /// </summary>
         public static bool IsLong(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var isValid = false;
@@ -619,7 +636,9 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has float type value.
+        /// </summary>
         public static bool IsFloat(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var isValid = false;
@@ -640,7 +659,9 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has double type value.
+        /// </summary>
         public static bool IsDouble(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var isValid = false;
@@ -661,7 +682,9 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has decimal type value.
+        /// </summary>
         public static bool IsDecimal(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var isValid = false;
@@ -682,12 +705,16 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has DateTime type value.
+        /// </summary>
         public static bool IsDateTime(this Dictionary<string, object> dictionary, string fieldPath)
         {
             return IsDateTime(dictionary, fieldPath, Dictator.Settings.DateTimeFormat);
         }
-        
+        /// <summary>
+        /// Checks if specified field has value which can be converted to DateTime object in given format.
+        /// </summary>
         public static bool IsDateTime(this Dictionary<string, object> dictionary, string fieldPath, DateTimeFormat dateTimeFormat)
         {
             var isValid = false;
@@ -729,7 +756,9 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has string type value.
+        /// </summary>
         public static bool IsString(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var isValid = false;
@@ -750,7 +779,9 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has object type value.
+        /// </summary>
         public static bool IsObject(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var isValid = false;
@@ -771,7 +802,9 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has Dictionary&lt;string, object&gt; type value.
+        /// </summary>
         public static bool IsDocument(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var isValid = false;
@@ -792,7 +825,9 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has enum type value.
+        /// </summary>
         public static bool IsEnum(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var isValid = false;
@@ -813,7 +848,10 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has given enum type value. Apart from native enum object also int and string values 
+        /// can be converted to given enum type. 
+        /// </summary>
         public static bool IsEnum<T>(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var isValid = false;
@@ -847,7 +885,9 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has List type value.
+        /// </summary>
         public static bool IsList(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var isValid = false;
@@ -868,7 +908,9 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field has given type value.
+        /// </summary>
         public static bool IsType(this Dictionary<string, object> dictionary, string fieldPath, Type type)
         {
             var isValid = false;
@@ -894,7 +936,9 @@ namespace Dictator
             
             return isValid;
         }
-        
+        /// <summary>
+        /// Checks if specified field equals to given value. Object's Equals method is used for value comparison.
+        /// </summary>
         public static bool IsEqual(this Dictionary<string, object> dictionary, string fieldPath, object compareValue)
         {
             var isValid = false;
@@ -925,6 +969,11 @@ namespace Dictator
         
         #endregion
 
+        /// <summary>
+        /// Retrieves value from specified field path.
+        /// </summary>
+        /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
+        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
         static object GetFieldValue(Dictionary<string, object> dictionary, string fieldPath)
         {
             object fieldValue = null;
@@ -969,7 +1018,9 @@ namespace Dictator
             
             return fieldValue;
         }
-        
+        /// <summary>
+        /// Stores given value to specified field path.
+        /// </summary>
         static void SetFieldValue(Dictionary<string, object> dictionary, string fieldPath, object fieldValue)
         {
             var fieldNames = new [] { fieldPath };
