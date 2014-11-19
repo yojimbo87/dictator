@@ -190,18 +190,24 @@ namespace Dictator.Tests
         public void Should_set_and_get_enum_int_fields()
         {
             var doc1 = Dictator.New()
-                .Int("enum1", 0);
+                .Enum("enum1", DateTimeFormat.Object, EnumFormat.Integer)
+                .Int("enum2", 1);
             
             Assert.IsTrue(doc1.Enum<DateTimeFormat>("enum1") == DateTimeFormat.Object);
+            Assert.IsTrue(doc1.Int("enum1") == 0);
+            Assert.IsTrue(doc1.Enum<DateTimeFormat>("enum2") == DateTimeFormat.String);
         }
         
         [Test()]
         public void Should_set_and_get_enum_string_fields()
         {
             var doc1 = Dictator.New()
-                .String("enum1", "object");
+                .Enum("enum1", DateTimeFormat.Object, EnumFormat.String)
+                .String("enum2", "string");
             
             Assert.IsTrue(doc1.Enum<DateTimeFormat>("enum1") == DateTimeFormat.Object);
+            Assert.IsTrue(doc1.String("enum1") == "Object");
+            Assert.IsTrue(doc1.Enum<DateTimeFormat>("enum2") == DateTimeFormat.String);
         }
         
         #endregion

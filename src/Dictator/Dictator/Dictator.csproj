@@ -35,6 +35,7 @@
     <Compile Include="DictatorSettings.cs" />
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="Enums\DateTimeFormat.cs" />
+    <Compile Include="Enums\EnumFormat.cs" />
     <Compile Include="Exceptions\InvalidFieldException.cs" />
     <Compile Include="Exceptions\InvalidFieldTypeException.cs" />
     <Compile Include="Exceptions\NonExistingFieldException.cs" />

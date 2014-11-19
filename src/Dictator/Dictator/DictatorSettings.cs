@@ -5,6 +5,7 @@ namespace Dictator
     public class DictatorSettings
     {
         public DateTimeFormat DateTimeFormat { get; set; }
+        public EnumFormat EnumFormat { get; set; }
         public string DateTimeStringFormat { get; set; }
         public DateTime UnixEpoch { get; private set; }
         
@@ -18,6 +19,7 @@ namespace Dictator
         public void ResetToDefaults()
         {
             DateTimeFormat = DateTimeFormat.Object;
+            EnumFormat = EnumFormat.Object;
             DateTimeStringFormat = "yyyy-MM-ddTHH:mm:ss.fffZ";
         }
     }

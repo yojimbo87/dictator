@@ -356,7 +356,7 @@ namespace Dictator
         #region DateTime
         
         /// <summary>
-        /// Stores DateTime type value to specified field path.
+        /// Stores DateTime type to specified field path with value in format specified in global settings DateTimeFormat.
         /// </summary>
         public static Dictionary<string, object> DateTime(this Dictionary<string, object> dictionary, string fieldPath, DateTime fieldValue)
         {
@@ -372,7 +372,7 @@ namespace Dictator
             return dictionary;
         }
         /// <summary>
-        /// Stores DateTime type value to specified field path.
+        /// Stores DateTime type to specified field path with value specified by DateTimeFormat.
         /// </summary>
         public static Dictionary<string, object> DateTime(this Dictionary<string, object> dictionary, string fieldPath, DateTime fieldValue, DateTimeFormat dateTimeFormat)
         {
@@ -432,12 +432,29 @@ namespace Dictator
             return dictionary;
         }
         /// <summary>
-        /// Stores enum type value to specified field path.
+        /// Stores enum type to specified field path with value in format specified in global settings EnumFormat.
         /// </summary>
-        // TODO: add option to save enum as native enum, int or string
         public static Dictionary<string, object> Enum<T>(this Dictionary<string, object> dictionary, string fieldPath, T fieldValue)
         {
-            SetFieldValue(dictionary, fieldPath, fieldValue);
+            return Enum(dictionary, fieldPath, fieldValue, Dictator.Settings.EnumFormat);
+        }
+        /// <summary>
+        /// Stores enum type to specified field path with value specified by EnumFormat.
+        /// </summary>
+        public static Dictionary<string, object> Enum<T>(this Dictionary<string, object> dictionary, string fieldPath, T fieldValue, EnumFormat enumFormat)
+        {
+            switch (enumFormat)
+            {
+                case EnumFormat.Integer:
+                    SetFieldValue(dictionary, fieldPath, (int)Convert.ChangeType(fieldValue, Type.GetTypeCode(fieldValue.GetType())));
+                    break;
+                case EnumFormat.String:
+                    SetFieldValue(dictionary, fieldPath, fieldValue.ToString());
+                    break;
+                default:
+                    SetFieldValue(dictionary, fieldPath, fieldValue);
+                    break;
+            }
             
             return dictionary;
         }
