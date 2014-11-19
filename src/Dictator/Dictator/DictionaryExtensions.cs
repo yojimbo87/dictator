@@ -9,6 +9,12 @@ namespace Dictator
     {
         #region Field getters
         
+        /// <summary>
+        /// Retrieves bool type value from specified field path.
+        /// </summary>
+        /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
+        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
+        /// <exception cref="InvalidFieldTypeException">Field value is not bool type.</exception>
         public static bool Bool(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var fieldValue = GetFieldValue(dictionary, fieldPath);
@@ -20,7 +26,12 @@ namespace Dictator
             
             return (bool)fieldValue;
         }
-        
+        /// <summary>
+        /// Retrieves byte type value from specified field path.
+        /// </summary>
+        /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
+        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
+        /// <exception cref="InvalidFieldTypeException">Field value is not byte type.</exception>
         public static byte Byte(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var fieldValue = GetFieldValue(dictionary, fieldPath);
@@ -32,7 +43,12 @@ namespace Dictator
             
             return (byte)fieldValue;
         }
-        
+        /// <summary>
+        /// Retrieves short type value from specified field path.
+        /// </summary>
+        /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
+        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
+        /// <exception cref="InvalidFieldTypeException">Field value is not short type.</exception>
         public static short Short(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var fieldValue = GetFieldValue(dictionary, fieldPath);
@@ -44,7 +60,12 @@ namespace Dictator
             
             return (short)fieldValue;
         }
-        
+        /// <summary>
+        /// Retrieves int type value from specified field path.
+        /// </summary>
+        /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
+        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
+        /// <exception cref="InvalidFieldTypeException">Field value is not int type.</exception>
         public static int Int(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var fieldValue = GetFieldValue(dictionary, fieldPath);
@@ -56,7 +77,12 @@ namespace Dictator
             
             return (int)fieldValue;
         }
-        
+        /// <summary>
+        /// Retrieves long type value from specified field path.
+        /// </summary>
+        /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
+        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
+        /// <exception cref="InvalidFieldTypeException">Field value is not long type.</exception>
         public static long Long(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var fieldValue = GetFieldValue(dictionary, fieldPath);
@@ -68,7 +94,12 @@ namespace Dictator
             
             return (long)fieldValue;
         }
-        
+        /// <summary>
+        /// Retrieves float type value from specified field path.
+        /// </summary>
+        /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
+        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
+        /// <exception cref="InvalidFieldTypeException">Field value is not float type.</exception>
         public static float Float(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var fieldValue = GetFieldValue(dictionary, fieldPath);
@@ -80,7 +111,12 @@ namespace Dictator
             
             return (float)fieldValue;
         }
-        
+        /// <summary>
+        /// Retrieves double type value from specified field path.
+        /// </summary>
+        /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
+        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
+        /// <exception cref="InvalidFieldTypeException">Field value is not double type.</exception>
         public static double Double(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var fieldValue = GetFieldValue(dictionary, fieldPath);
@@ -92,7 +128,12 @@ namespace Dictator
             
             return (double)fieldValue;
         }
-        
+        /// <summary>
+        /// Retrieves decimal type value from specified field path.
+        /// </summary>
+        /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
+        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
+        /// <exception cref="InvalidFieldTypeException">Field value is not decimal type.</exception>
         public static decimal Decimal(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var fieldValue = GetFieldValue(dictionary, fieldPath);
@@ -104,7 +145,12 @@ namespace Dictator
             
             return (decimal)fieldValue;
         }
-        
+        /// <summary>
+        /// Retrieves DateTime type value from specified field path.
+        /// </summary>
+        /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
+        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
+        /// <exception cref="InvalidFieldTypeException">Field value is not DateTime type.</exception>
         public static DateTime DateTime(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var fieldValue = GetFieldValue(dictionary, fieldPath);
@@ -129,7 +175,12 @@ namespace Dictator
             
             return dateTime;
         }
-        
+        /// <summary>
+        /// Retrieves string type value from specified field path.
+        /// </summary>
+        /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
+        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
+        /// <exception cref="InvalidFieldTypeException">Field value is not string type.</exception>
         public static string String(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var fieldValue = GetFieldValue(dictionary, fieldPath);
@@ -141,17 +192,30 @@ namespace Dictator
             
             return (string)fieldValue;
         }
-        
+        /// <summary>
+        /// Retrieves object type value from specified field path.
+        /// </summary>
+        /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
+        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
         public static object Object(this Dictionary<string, object> dictionary, string fieldPath)
         {
             return GetFieldValue(dictionary, fieldPath);
         }
-        
+        /// <summary>
+        /// Retrieves generic type value from specified field path.
+        /// </summary>
+        /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
+        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
         public static T Object<T>(this Dictionary<string, object> dictionary, string fieldPath)
         {
             return (T)GetFieldValue(dictionary, fieldPath);
         }
-        
+        /// <summary>
+        /// Retrieves Dictionary&lt;string, object&gt; type value from specified field path.
+        /// </summary>
+        /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
+        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
+        /// <exception cref="InvalidFieldTypeException">Field value is not Dictionary&lt;string, object&gt; type.</exception>
         public static Dictionary<string, object> Document(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var fieldValue = GetFieldValue(dictionary, fieldPath);
@@ -163,7 +227,12 @@ namespace Dictator
             
             return (Dictionary<string, object>)fieldValue;
         }
-        
+        /// <summary>
+        /// Retrieves enum type value from specified field path. Value is converted to enum if it is int or string type. 
+        /// </summary>
+        /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
+        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
+        /// <exception cref="InvalidFieldTypeException">Field value can not be converted to enum type.</exception>
         public static T Enum<T>(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var type = typeof(T);
@@ -189,7 +258,12 @@ namespace Dictator
             
             return fieldEnum;
         }
-        
+        /// <summary>
+        /// Retrieves List which consists of given type from specified field path.
+        /// </summary>
+        /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
+        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
+        /// <exception cref="InvalidFieldTypeException">Field value is not List&lt;T&gt; type.</exception>
         public static List<T> List<T>(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var fieldValue = GetFieldValue(dictionary, fieldPath);
