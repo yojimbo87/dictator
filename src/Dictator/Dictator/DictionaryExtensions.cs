@@ -259,7 +259,7 @@ namespace Dictator
             return fieldEnum;
         }
         /// <summary>
-        /// Retrieves List which consists of given type from specified field path.
+        /// Retrieves generic List type from specified field path.
         /// </summary>
         /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
         /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
@@ -280,55 +280,72 @@ namespace Dictator
         
         #region Field setters
         
+        /// <summary>
+        /// Stores bool type value to specified field path.
+        /// </summary>
         public static Dictionary<string, object> Bool(this Dictionary<string, object> dictionary, string fieldPath, bool fieldValue)
         {
             SetFieldValue(dictionary, fieldPath, fieldValue);
             
             return dictionary;
         }
-        
+        /// <summary>
+        /// Stores byte type value to specified field path.
+        /// </summary>
         public static Dictionary<string, object> Byte(this Dictionary<string, object> dictionary, string fieldPath, byte fieldValue)
         {
             SetFieldValue(dictionary, fieldPath, fieldValue);
             
             return dictionary;
         }
-        
+        /// <summary>
+        /// Stores short type value to specified field path.
+        /// </summary>
         public static Dictionary<string, object> Short(this Dictionary<string, object> dictionary, string fieldPath, short fieldValue)
         {
             SetFieldValue(dictionary, fieldPath, fieldValue);
             
             return dictionary;
         }
-        
+        /// <summary>
+        /// Stores int type value to specified field path.
+        /// </summary>
         public static Dictionary<string, object> Int(this Dictionary<string, object> dictionary, string fieldPath, int fieldValue)
         {
             SetFieldValue(dictionary, fieldPath, fieldValue);
             
             return dictionary;
         }
-        
+        /// <summary>
+        /// Stores long type value to specified field path.
+        /// </summary>
         public static Dictionary<string, object> Long(this Dictionary<string, object> dictionary, string fieldPath, long fieldValue)
         {
             SetFieldValue(dictionary, fieldPath, fieldValue);
             
             return dictionary;
         }
-        
+        /// <summary>
+        /// Stores float type value to specified field path.
+        /// </summary>
         public static Dictionary<string, object> Float(this Dictionary<string, object> dictionary, string fieldPath, float fieldValue)
         {
             SetFieldValue(dictionary, fieldPath, fieldValue);
             
             return dictionary;
         }
-        
+        /// <summary>
+        /// Stores double type value to specified field path.
+        /// </summary>
         public static Dictionary<string, object> Double(this Dictionary<string, object> dictionary, string fieldPath, double fieldValue)
         {
             SetFieldValue(dictionary, fieldPath, fieldValue);
             
             return dictionary;
         }
-        
+        /// <summary>
+        /// Stores decimal type value to specified field path.
+        /// </summary>
         public static Dictionary<string, object> Decimal(this Dictionary<string, object> dictionary, string fieldPath, decimal fieldValue)
         {
             SetFieldValue(dictionary, fieldPath, fieldValue);
@@ -338,18 +355,25 @@ namespace Dictator
 
         #region DateTime
         
+        /// <summary>
+        /// Stores DateTime type value to specified field path.
+        /// </summary>
         public static Dictionary<string, object> DateTime(this Dictionary<string, object> dictionary, string fieldPath, DateTime fieldValue)
         {
             return DateTime(dictionary, fieldPath, fieldValue, Dictator.Settings.DateTimeFormat);
         }
-        
+        /// <summary>
+        /// Stores DateTime type value to specified field path.
+        /// </summary>
         public static Dictionary<string, object> DateTime(this Dictionary<string, object> dictionary, string fieldPath, DateTime fieldValue, string dateTimeStringFormat)
         {
             SetFieldValue(dictionary, fieldPath, fieldValue.ToUniversalTime().ToString(dateTimeStringFormat, DateTimeFormatInfo.InvariantInfo));
             
             return dictionary;
         }
-        
+        /// <summary>
+        /// Stores DateTime type value to specified field path.
+        /// </summary>
         public static Dictionary<string, object> DateTime(this Dictionary<string, object> dictionary, string fieldPath, DateTime fieldValue, DateTimeFormat dateTimeFormat)
         {
             switch (dateTimeFormat)
@@ -371,41 +395,55 @@ namespace Dictator
         
         #endregion
         
+        /// <summary>
+        /// Stores string type value to specified field path.
+        /// </summary>
         public static Dictionary<string, object> String(this Dictionary<string, object> dictionary, string fieldPath, string fieldValue)
         {
             SetFieldValue(dictionary, fieldPath, fieldValue);
             
             return dictionary;
         }
-        
+        /// <summary>
+        /// Stores object type value to specified field path.
+        /// </summary>
         public static Dictionary<string, object> Object(this Dictionary<string, object> dictionary, string fieldPath, object fieldValue)
         {
             SetFieldValue(dictionary, fieldPath, fieldValue);
             
             return dictionary;
         }
-        
+        /// <summary>
+        /// Stores generic type value to specified field path.
+        /// </summary>
         public static Dictionary<string, object> Object<T>(this Dictionary<string, object> dictionary, string fieldPath, T fieldValue)
         {
             SetFieldValue(dictionary, fieldPath, fieldValue);
             
             return dictionary;
         }
-        
+        /// <summary>
+        /// Stores Dictionary&lt;string, object&gt; type value to specified field path.
+        /// </summary>
         public static Dictionary<string, object> Document(this Dictionary<string, object> dictionary, string fieldPath, Dictionary<string, object> fieldValue)
         {
             SetFieldValue(dictionary, fieldPath, fieldValue);
             
             return dictionary;
         }
-        
+        /// <summary>
+        /// Stores enum type value to specified field path.
+        /// </summary>
+        // TODO: add option to save enum as native enum, int or string
         public static Dictionary<string, object> Enum<T>(this Dictionary<string, object> dictionary, string fieldPath, T fieldValue)
         {
             SetFieldValue(dictionary, fieldPath, fieldValue);
             
             return dictionary;
         }
-        
+        /// <summary>
+        /// Stores generic List type value to specified field path.
+        /// </summary>
         public static Dictionary<string, object> List<T>(this Dictionary<string, object> dictionary, string fieldPath, List<T> fieldValue)
         {
             SetFieldValue(dictionary, fieldPath, fieldValue);
