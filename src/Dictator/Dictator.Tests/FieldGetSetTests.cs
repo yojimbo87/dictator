@@ -114,6 +114,20 @@ namespace Dictator.Tests
         }
         
         [Test()]
+        public void Should_set_and_get_object_fields_with_cast_to_primitive_values()
+        {
+            object obj1 = 123;
+            object obj2 = "test1";
+            
+            var doc1 = Dictator.New()
+                .Object("object1", obj1)
+                .Object("object2", obj2);
+            
+            Assert.IsTrue(doc1.Int("object1") == 123);
+            Assert.IsTrue(doc1.String("object2") == "test1");
+        }
+        
+        [Test()]
         public void Should_set_and_get_generic_object_fields()
         {
             var doc1 = Dictator.New()
@@ -222,7 +236,24 @@ namespace Dictator.Tests
             var doc1 = Dictator.New()
                 .List("list1", list1);
             
-            Assert.IsTrue(doc1.List<int>("list1") == list1);
+            for (int i = 0; i < list1.Count; i++)
+            {
+                Assert.IsTrue(doc1.List<int>("list1")[i] == list1[i]);
+            }
+        }
+        
+        [Test()]
+        public void Should_set_and_get_list_with_object_values()
+        {
+            var list1 = new List<object>() { 1, 2, 3 };
+            
+            var doc1 = Dictator.New()
+                .List("list1", list1);
+
+            for (int i = 0; i < list1.Count; i++)
+            {
+                Assert.IsTrue(doc1.List<int>("list1")[i] == (int)list1[i]);
+            }
         }
         
         [Test()]
@@ -241,7 +272,10 @@ namespace Dictator.Tests
             var doc1 = Dictator.New()
                 .List("list1", list1);
             
-            Assert.IsTrue(doc1.List<Dictionary<string, object>>("list1") == list1);
+            for (int i = 0; i < list1.Count; i++)
+            {
+                Assert.IsTrue(doc1.List<Dictionary<string, object>>("list1")[i].String("string1") == list1[i].String("string1"));
+            }
         }
         
         #endregion
@@ -257,6 +291,19 @@ namespace Dictator.Tests
             Assert.IsTrue(doc1.String("string1") == "test1");
             Assert.IsTrue(doc1.String("foo.string2") == "test2");
             Assert.IsTrue(doc1.String("foo.bar.string3") == "test3");
+        }
+        
+        [Test()]
+        public void Should_set_and_get_cast_fields()
+        {
+            var doc1 = Dictator.New()
+                .Object("int1", (long)123)
+                .Object("string1", "test2")
+                .Object("float1", 3.14); // double for the purpose of later comparison with float
+            
+            Assert.IsTrue(doc1.Int("int1") == 123);
+            Assert.IsTrue(doc1.String("string1") == "test2");
+            Assert.IsTrue(doc1.Float("float1") == 3.14f);
         }
     }
 }
