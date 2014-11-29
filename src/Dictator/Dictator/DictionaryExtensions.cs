@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Dictator
 {
@@ -14,143 +15,77 @@ namespace Dictator
         /// </summary>
         /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
         /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
-        /// <exception cref="InvalidFieldTypeException">Field value is not bool type.</exception>
         public static bool Bool(this Dictionary<string, object> dictionary, string fieldPath)
         {
-            var fieldValue = GetFieldValue(dictionary, fieldPath);
-            
-            if (!(fieldValue is bool))
-            {
-                throw new InvalidFieldTypeException(string.Format("Field path '{0}' value does not contain bool type.", fieldPath));
-            }
-            
-            return (bool)fieldValue;
+            return Convert.ToBoolean(GetFieldValue(dictionary, fieldPath));
         }
         /// <summary>
         /// Retrieves byte type value from specified field path.
         /// </summary>
         /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
         /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
-        /// <exception cref="InvalidFieldTypeException">Field value is not byte type.</exception>
         public static byte Byte(this Dictionary<string, object> dictionary, string fieldPath)
         {
-            var fieldValue = GetFieldValue(dictionary, fieldPath);
-            
-            if (!(fieldValue is byte))
-            {
-                throw new InvalidFieldTypeException(string.Format("Field path '{0}' value does not contain byte type.", fieldPath));
-            }
-            
-            return (byte)fieldValue;
+            return Convert.ToByte(GetFieldValue(dictionary, fieldPath));
         }
         /// <summary>
         /// Retrieves short type value from specified field path.
         /// </summary>
         /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
         /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
-        /// <exception cref="InvalidFieldTypeException">Field value is not short type.</exception>
         public static short Short(this Dictionary<string, object> dictionary, string fieldPath)
         {
-            var fieldValue = GetFieldValue(dictionary, fieldPath);
-            
-            if (!(fieldValue is short))
-            {
-                throw new InvalidFieldTypeException(string.Format("Field path '{0}' value does not contain short type.", fieldPath));
-            }
-            
-            return (short)fieldValue;
+            return Convert.ToInt16(GetFieldValue(dictionary, fieldPath));
         }
         /// <summary>
         /// Retrieves int type value from specified field path.
         /// </summary>
         /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
         /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
-        /// <exception cref="InvalidFieldTypeException">Field value is not int type.</exception>
         public static int Int(this Dictionary<string, object> dictionary, string fieldPath)
         {
-            var fieldValue = GetFieldValue(dictionary, fieldPath);
-            
-            if (!(fieldValue is int))
-            {
-                throw new InvalidFieldTypeException(string.Format("Field path '{0}' value does not contain int type.", fieldPath));
-            }
-            
-            return (int)fieldValue;
+            return Convert.ToInt32(GetFieldValue(dictionary, fieldPath));
         }
         /// <summary>
         /// Retrieves long type value from specified field path.
         /// </summary>
         /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
         /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
-        /// <exception cref="InvalidFieldTypeException">Field value is not long type.</exception>
         public static long Long(this Dictionary<string, object> dictionary, string fieldPath)
         {
-            var fieldValue = GetFieldValue(dictionary, fieldPath);
-            
-            if (!(fieldValue is long))
-            {
-                throw new InvalidFieldTypeException(string.Format("Field path '{0}' value does not contain long type.", fieldPath));
-            }
-            
-            return (long)fieldValue;
+            return Convert.ToInt64(GetFieldValue(dictionary, fieldPath));
         }
         /// <summary>
         /// Retrieves float type value from specified field path.
         /// </summary>
         /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
         /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
-        /// <exception cref="InvalidFieldTypeException">Field value is not float type.</exception>
         public static float Float(this Dictionary<string, object> dictionary, string fieldPath)
         {
-            var fieldValue = GetFieldValue(dictionary, fieldPath);
-            
-            if (!(fieldValue is float))
-            {
-                throw new InvalidFieldTypeException(string.Format("Field path '{0}' value does not contain float type.", fieldPath));
-            }
-            
-            return (float)fieldValue;
+            return Convert.ToSingle(GetFieldValue(dictionary, fieldPath));
         }
         /// <summary>
         /// Retrieves double type value from specified field path.
         /// </summary>
         /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
         /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
-        /// <exception cref="InvalidFieldTypeException">Field value is not double type.</exception>
         public static double Double(this Dictionary<string, object> dictionary, string fieldPath)
         {
-            var fieldValue = GetFieldValue(dictionary, fieldPath);
-            
-            if (!(fieldValue is double))
-            {
-                throw new InvalidFieldTypeException(string.Format("Field path '{0}' value does not contain double type.", fieldPath));
-            }
-            
-            return (double)fieldValue;
+            return Convert.ToDouble(GetFieldValue(dictionary, fieldPath));
         }
         /// <summary>
         /// Retrieves decimal type value from specified field path.
         /// </summary>
         /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
         /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
-        /// <exception cref="InvalidFieldTypeException">Field value is not decimal type.</exception>
         public static decimal Decimal(this Dictionary<string, object> dictionary, string fieldPath)
         {
-            var fieldValue = GetFieldValue(dictionary, fieldPath);
-            
-            if (!(fieldValue is decimal))
-            {
-                throw new InvalidFieldTypeException(string.Format("Field path '{0}' value does not contain decimal type.", fieldPath));
-            }
-            
-            return (decimal)fieldValue;
+            return Convert.ToDecimal(GetFieldValue(dictionary, fieldPath));
         }
         /// <summary>
         /// Retrieves DateTime type value from specified field path.
         /// </summary>
         /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
-        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
-        /// <exception cref="InvalidFieldTypeException">Field value is not DateTime type.</exception>
         public static DateTime DateTime(this Dictionary<string, object> dictionary, string fieldPath)
         {
             var fieldValue = GetFieldValue(dictionary, fieldPath);
@@ -170,7 +105,7 @@ namespace Dictator
             }
             else
             {
-                throw new InvalidFieldTypeException(string.Format("Field path '{0}' value does not contain value which can be converted to DateTime type.", fieldPath));
+                dateTime = Convert.ToDateTime(GetFieldValue(dictionary, fieldPath));
             }
             
             return dateTime;
@@ -180,17 +115,9 @@ namespace Dictator
         /// </summary>
         /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
         /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
-        /// <exception cref="InvalidFieldTypeException">Field value is not string type.</exception>
         public static string String(this Dictionary<string, object> dictionary, string fieldPath)
         {
-            var fieldValue = GetFieldValue(dictionary, fieldPath);
-            
-            if (!(fieldValue is string))
-            {
-                throw new InvalidFieldTypeException(string.Format("Field path '{0}' value does not contain string type.", fieldPath));
-            }
-            
-            return (string)fieldValue;
+            return Convert.ToString(GetFieldValue(dictionary, fieldPath));
         }
         /// <summary>
         /// Retrieves object type value from specified field path.
@@ -273,7 +200,7 @@ namespace Dictator
                 throw new InvalidFieldTypeException(string.Format("Field path '{0}' value does not contain list type.", fieldPath));
             }
             
-            return (List<T>)fieldValue;
+            return ((IEnumerable)fieldValue).Cast<T>().ToList();
         }
         
         #endregion

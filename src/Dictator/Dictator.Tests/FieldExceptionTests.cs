@@ -24,7 +24,7 @@ namespace Dictator.Tests
                 .String("string1", "test1");
             
             Assert.Throws<InvalidFieldTypeException>(() => {
-                var int1 = doc1.Int("string1");
+                var list1 = doc1.List<string>("string1");
             });
         }
         
