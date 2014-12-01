@@ -31,19 +31,15 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateTimeFormat.cs" />
     <Compile Include="Dictator.cs" />
     <Compile Include="DictatorSettings.cs" />
     <Compile Include="DictionaryExtensions.cs" />
-    <Compile Include="Enums\DateTimeFormat.cs" />
-    <Compile Include="Enums\EnumFormat.cs" />
-    <Compile Include="Exceptions\InvalidFieldException.cs" />
-    <Compile Include="Exceptions\InvalidFieldTypeException.cs" />
-    <Compile Include="Exceptions\NonExistingFieldException.cs" />
+    <Compile Include="EnumFormat.cs" />
+    <Compile Include="InvalidFieldException.cs" />
+    <Compile Include="InvalidFieldTypeException.cs" />
+    <Compile Include="NonExistingFieldException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exceptions" />
-    <Folder Include="Enums" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
