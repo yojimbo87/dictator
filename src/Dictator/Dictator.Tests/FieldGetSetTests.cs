@@ -201,15 +201,30 @@ namespace Dictator.Tests
         }
         
         [Test()]
-        public void Should_set_and_get_enum_int_fields()
+        public void Should_set_and_get_enum_integer_fields()
         {
             var doc1 = Dictator.New()
                 .Enum("enum1", DateTimeFormat.Object, EnumFormat.Integer)
-                .Int("enum2", 1);
+                .Int("byte", (byte)1)
+                .Object("sbyte", (sbyte)1)
+                .Short("short", (short)1)
+                .Object("ushort", (ushort)1)
+                .Int("int", (int)1)
+                .Object("uint", (uint)1)
+                .Long("long", (long)1)
+                .Object("ulong", (ulong)1);
             
             Assert.IsTrue(doc1.Enum<DateTimeFormat>("enum1") == DateTimeFormat.Object);
             Assert.IsTrue(doc1.Int("enum1") == 0);
-            Assert.IsTrue(doc1.Enum<DateTimeFormat>("enum2") == DateTimeFormat.String);
+            
+            Assert.IsTrue(doc1.Enum<DateTimeFormat>("byte") == DateTimeFormat.String);
+            Assert.IsTrue(doc1.Enum<DateTimeFormat>("sbyte") == DateTimeFormat.String);
+            Assert.IsTrue(doc1.Enum<DateTimeFormat>("short") == DateTimeFormat.String);
+            Assert.IsTrue(doc1.Enum<DateTimeFormat>("ushort") == DateTimeFormat.String);
+            Assert.IsTrue(doc1.Enum<DateTimeFormat>("int") == DateTimeFormat.String);
+            Assert.IsTrue(doc1.Enum<DateTimeFormat>("uint") == DateTimeFormat.String);
+            Assert.IsTrue(doc1.Enum<DateTimeFormat>("long") == DateTimeFormat.String);
+            Assert.IsTrue(doc1.Enum<DateTimeFormat>("ulong") == DateTimeFormat.String);
         }
         
         [Test()]
