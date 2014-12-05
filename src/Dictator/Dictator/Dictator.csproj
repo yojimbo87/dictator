@@ -38,6 +38,7 @@
     <Compile Include="EnumFormat.cs" />
     <Compile Include="InvalidFieldException.cs" />
     <Compile Include="InvalidFieldTypeException.cs" />
+    <Compile Include="MergeBehavior.cs" />
     <Compile Include="NonExistingFieldException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
