@@ -293,6 +293,17 @@ namespace Dictator.Tests
             }
         }
         
+        [Test()]
+        public void Should_set_and_get_list_size()
+        {
+            var list1 = new List<int>() { 1, 2, 3 };
+            
+            var doc1 = Dictator.New()
+                .List("list1", list1);
+            
+            Assert.AreEqual(doc1.ListSize("list1"), 3);
+        }
+        
         #endregion
         
         [Test()]

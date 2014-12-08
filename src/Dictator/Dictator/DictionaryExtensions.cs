@@ -205,6 +205,23 @@ namespace Dictator
             
             return ((IEnumerable)fieldValue).Cast<T>().ToList();
         }
+        /// <summary>
+        /// Retrieves number of list items from specified field path.
+        /// </summary>
+        /// <exception cref="NonExistingFieldException">Field does not exist in specified path.</exception>
+        /// <exception cref="InvalidFieldException">Field path contains field which is not traversable.</exception>
+        /// <exception cref="InvalidFieldTypeException">Field value is not List type.</exception>
+        public static int ListSize(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var fieldValue = GetFieldValue(dictionary, fieldPath);
+            
+            if (!(fieldValue.GetType().IsGenericType && (fieldValue is IList)))
+            {
+                throw new InvalidFieldTypeException(string.Format("Field path '{0}' value does not contain list type.", fieldPath));
+            }
+            
+            return ((IList)fieldValue).Count;
+        }
         
         #endregion
         
