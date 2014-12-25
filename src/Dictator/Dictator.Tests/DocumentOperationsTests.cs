@@ -220,5 +220,60 @@ namespace Dictator.Tests
             Assert.IsFalse(doc1.Has("boo.foo"));
             Assert.IsTrue(doc1.Has("boo.bar"));
         }
+        
+        [Test()]
+        public void Should_convert_dictionary_to_strongly_typed_object()
+        {
+            var children = new List<Dictionary<string, object>>();
+            
+            for (int i = 0; i < 5; i++)
+            {
+                var child = new Dictionary<string, object>()
+                    .String("Foo", "string " + i)
+                    .Int("Bar", i);
+                
+                children.Add(child);
+            }
+            
+            var parent = new Dictionary<string, object>()
+                .String("Foo", "parent string value")
+                .Int("Bar", 11111);
+            
+            var root = new Dictionary<string, object>()
+                .String("Foo", "string value")
+                .Int("Bar", 12345)
+                .List("FooList", new List<string> { "one", "two", "three" })
+                .Document("Parent", parent)
+                .List("Children", children)
+                .Object("Dictionary", parent)
+                .List("Dictionaries", children);
+            
+            var stronglyTypedObject = root.ToObject<Dummy>();
+            
+            Assert.AreEqual(root.String("Foo"), stronglyTypedObject.Foo);
+            Assert.AreEqual(root.Int("Bar"), stronglyTypedObject.Bar);
+            Assert.AreEqual(root.String("Parent.Foo"), stronglyTypedObject.Parent.Foo);
+            Assert.AreEqual(root.Int("Parent.Bar"), stronglyTypedObject.Parent.Bar);
+            Assert.AreEqual(new List<string> { "one", "two", "three" }, stronglyTypedObject.FooList);
+            
+            for (int i = 0; i < 5; i++)
+            {
+                var obj = stronglyTypedObject.Children[i];
+                
+                Assert.AreEqual("string " + i, obj.Foo);
+                Assert.AreEqual(i, obj.Bar);
+            }
+            
+            Assert.AreEqual(root.String("Dictionary.Foo"), stronglyTypedObject.Dictionary.String("Foo"));
+            Assert.AreEqual(root.Int("Dictionary.Bar"), stronglyTypedObject.Dictionary.Int("Bar"));
+            
+            for (int i = 0; i < 5; i++)
+            {
+                var dict = stronglyTypedObject.Dictionaries[i];
+                
+                Assert.AreEqual("string " + i, dict.String("Foo"));
+                Assert.AreEqual(i, dict.Int("Bar"));
+            }
+        }
     }
 }

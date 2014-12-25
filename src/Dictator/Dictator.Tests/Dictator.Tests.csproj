@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DocumentOperationsTests.cs" />
+    <Compile Include="Dummy.cs" />
     <Compile Include="FieldCheckTests.cs" />
     <Compile Include="FieldExceptionTests.cs" />
     <Compile Include="FieldGetSetTests.cs" />
