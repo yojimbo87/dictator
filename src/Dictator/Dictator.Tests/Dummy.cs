@@ -11,5 +11,7 @@ namespace Dictator.Tests
         public List<Dummy> Children { get; set; }
         public Dictionary<string, object> Dictionary { get; set; }
         public List<Dictionary<string, object>> Dictionaries { get; set; }
+        
+        public Dictionary<string, string> PrimitiveDictionary { get; set; }
     }
 }

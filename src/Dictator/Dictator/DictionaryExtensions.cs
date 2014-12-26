@@ -1230,8 +1230,7 @@ namespace Dictator
                         propertyInfo.SetValue(stronglyTypedObject, ConvertToObject((Dictionary<string, object>)fieldValue, propertyInfo.PropertyType), null);
                     }
                     // property is a collection
-                    else if ((propertyInfo.PropertyType.IsArray || 
-                         propertyInfo.PropertyType.IsGenericType))
+                    else if ((propertyInfo.PropertyType.IsArray || propertyInfo.PropertyType.IsGenericType) && (fieldValue is IList))
                     {
                         var instance = Activator.CreateInstance(propertyInfo.PropertyType);
                             
