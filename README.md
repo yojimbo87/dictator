@@ -1,9 +1,6 @@
-dictator
-========
+# dictator
 
 Dictator is a C# library which provides a set of extension methods for handling data stored in `Dictionary<string, object>` object which serves as closest .NET low level representation of native JSON documents.
-
-### Example
 
 ```
 var document = new Dictionary<string, object>()
