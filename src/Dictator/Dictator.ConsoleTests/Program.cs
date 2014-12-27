@@ -67,7 +67,11 @@ namespace Dictator.ConsoleTests
                 
             if (document.IsString("foo") && document.IsInt("bar") && document.IsString("embedded.foo"))
             {
-                Console.WriteLine("{0}, {1}, {2}", document.String("foo"), document.Int("bar"), document.String("embedded.foo"));
+                var foo = document.String("foo");
+                var bar = document.Int("bar");
+                var embeddedFoo = document.String("embedded.foo");
+                
+                Console.WriteLine("{0}, {1}, {2}", foo, bar, embeddedFoo);
             }
         }
     }
