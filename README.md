@@ -27,14 +27,14 @@ if (document.IsString("foo") && document.IsInt("bar") && document.IsString("embe
 }
 ```
 
-## Docs
+## Docs contents
 
-- [Dictionary extension methods](#Dictionary-extension-methods)
-  - [Standard field set and get operations](#Standard-field-set-and-get-operations)
-  - [DateTime field set and get operations](#DateTime-field-set-and-get-operations)
-  - [Enum field set and get operations](#Enum-field-set-and-get-operations)
-  - [List field set and get operations](#List-field-set-and-get-operations)
-  - [Nested field set and get operations](#Nested-field-set-and-get-operations)
+- [Dictionary extension methods](#dictionary-extension-methods)
+  - [Standard field set and get operations](#standard-field-set-and-get-operations)
+  - [DateTime field set and get operations](#dateTime-field-set-and-get-operations)
+  - [Enum field set and get operations](#enum-field-set-and-get-operations)
+  - [List field set and get operations](#list-field-set-and-get-operations)
+  - [Nested field set and get operations](#nested-field-set-and-get-operations)
 
 ## Dictionary extension methods
 
