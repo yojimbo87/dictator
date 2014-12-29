@@ -12,11 +12,18 @@ namespace Dictator.ConsoleTests
             //ListTest();
             
             //Examples.GeneralUsage();
-            //Examples.SimpleSetGetOperations();
+            //Examples.BasicSetGetOperations();
             //Examples.DateTimeSetGetOperations();
             //Examples.EnumSetGetOperations();
             //Examples.ListSetGetOperations();
-            Examples.NestedSetGetOperations();
+            //Examples.NestedSetGetOperations();
+            
+            //Examples.ExactTypeCheckOperations();
+            //Examples.NullTypeCheckOperations();
+            //Examples.DateTimeTypeCheckOperations();
+            //Examples.EnumTypeCheckOperations();
+            //Examples.GenericTypeCheckOperations();
+            Examples.FieldValueEqualityCheckOperations();
             
             Console.WriteLine("\n\nEND");
             Console.ReadLine();

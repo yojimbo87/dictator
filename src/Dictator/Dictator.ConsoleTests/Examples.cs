@@ -33,7 +33,7 @@ namespace Dictator.ConsoleTests
             }
         }
         
-        public static void SimpleSetGetOperations()
+        public static void BasicSetGetOperations()
         {
             var document = new Dictionary<string, object>()
                 .String("foo", "string value")
@@ -143,6 +143,132 @@ namespace Dictator.ConsoleTests
             Console.WriteLine(string1);
             Console.WriteLine(string2);
             Console.WriteLine(string3);
+        }
+        
+        public static void ExactTypeCheckOperations()
+        {
+            var document = new Dictionary<string, object>()
+                .String("foo", "foo string value")
+                .Int("bar", 12345)
+                .Bool("embedded.foo", true);
+            
+            // true
+            var isString = document.IsString("foo");
+            // true
+            var isInt = document.IsInt("bar");
+            // true
+            var isBool = document.IsBool("embedded.foo");
+            // false
+            var isLong = document.IsLong("bar");
+            // false
+            var isDateTime = document.IsDateTime("nonExistingField");
+            
+            Console.WriteLine(isString);
+            Console.WriteLine(isInt);
+            Console.WriteLine(isBool);
+            Console.WriteLine(isLong);
+            Console.WriteLine(isDateTime);
+        }
+        
+        public static void NullTypeCheckOperations()
+        {
+            var document = new Dictionary<string, object>()
+                .Object("foo", null)
+                .Int("bar", 12345);
+            
+            // true
+            var isNull = document.IsNull("foo");
+            // true
+            var isNotNull = document.IsNotNull("bar");
+            // false
+            var isNull2 = document.IsNull("nonExistingField");
+            // false
+            var isNotNull2 = document.IsNotNull("nonExistingField");
+            
+            Console.WriteLine(isNull);
+            Console.WriteLine(isNotNull);
+            Console.WriteLine(isNull2);
+            Console.WriteLine(isNotNull2);
+        }
+        
+        public static void DateTimeTypeCheckOperations()
+        {
+            var document = new Dictionary<string, object>()
+                .DateTime("dateTime1", DateTime.UtcNow)
+                .DateTime("dateTime2", DateTime.UtcNow, DateTimeFormat.String)
+                .DateTime("dateTime3", DateTime.UtcNow, DateTimeFormat.UnixTimeStamp);
+            
+            // true
+            var isDateTime1 = document.IsDateTime("dateTime1");
+            // true
+            var isDateTime2 = document.IsDateTime("dateTime2", DateTimeFormat.String);
+            // true
+            var isDateTime3 = document.IsDateTime("dateTime3", DateTimeFormat.UnixTimeStamp);
+            
+            Console.WriteLine(isDateTime1);
+            Console.WriteLine(isDateTime2);
+            Console.WriteLine(isDateTime3);
+        }
+        
+        public static void EnumTypeCheckOperations()
+        {
+            var document = new Dictionary<string, object>()
+                .Enum("enum1", DateTimeFormat.Object)
+                .Int("enum2", 0)
+                .String("enum3", "object");
+            
+            // true
+            var isEnum1 = document.IsEnum("enum1");
+            // true
+            var isEnum2 = document.IsEnum<DateTimeFormat>("enum2");
+            // true
+            var isEnum3 = document.IsEnum<DateTimeFormat>("enum3");
+            // false
+            var isEnum4 = document.IsEnum("enum2");
+            // false
+            var isEnum5 = document.IsEnum("enum3");
+            
+            Console.WriteLine(isEnum1);
+            Console.WriteLine(isEnum2);
+            Console.WriteLine(isEnum3);
+            Console.WriteLine(isEnum4);
+            Console.WriteLine(isEnum5);
+        }
+        
+        public static void GenericTypeCheckOperations()
+        {
+            var document = new Dictionary<string, object>()
+                .String("foo", "foo string value")
+                .Int("bar", 12345);
+            
+            // true
+            var isString = document.IsType<string>("foo");
+            // true
+            var isInt = document.IsType("bar", typeof(int));
+            // false
+            var isBool = document.IsType<bool>("nonExistingField");
+            
+            Console.WriteLine(isString);
+            Console.WriteLine(isInt);
+            Console.WriteLine(isBool);
+        }
+        
+        public static void FieldValueEqualityCheckOperations()
+        {
+            var document = new Dictionary<string, object>()
+                .String("foo", "foo string value")
+                .Int("bar", 12345);
+            
+            // true
+            var isEqual1 = document.IsEqual("foo", "foo string value");
+            // true
+            var isEqual2 = document.IsEqual("bar", 12345);
+            // false
+            var isEqual3 = document.IsEqual("nonExistingField", "some string value");
+            
+            Console.WriteLine(isEqual1);
+            Console.WriteLine(isEqual2);
+            Console.WriteLine(isEqual3);
         }
     }
 }

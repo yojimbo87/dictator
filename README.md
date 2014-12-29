@@ -30,19 +30,29 @@ if (document.IsString("foo") && document.IsInt("bar") && document.IsString("embe
 ## Docs contents
 
 - [Dictionary extension methods](#dictionary-extension-methods)
-  - [Standard field set and get operations](#standard-field-set-and-get-operations)
-  - [DateTime field set and get operations](#dateTime-field-set-and-get-operations)
-  - [Enum field set and get operations](#enum-field-set-and-get-operations)
-  - [List field set and get operations](#list-field-set-and-get-operations)
-  - [Nested field set and get operations](#nested-field-set-and-get-operations)
+  - [Field set and get operations](#field-set-and-get-operations)
+    - [Basic types examples](#basic-types-examples)
+    - [DateTime type examples](#datetime-type-examples)
+    - [Enum type examples](#enum-type-examples)
+    - [List of objects examples](#list-of-objects-examples)
+    - [Nested fields examples](#nested-fields-examples)
+  - [Field check operations](#field-check-operations)
+    - [Exact type check examples](#exact-type-check-examples)
+    - [Null check examples](#null-check-examples)
+    - [DateTime type check examples](#datetime-type-check-examples)
+    - [Enum type check examples](#enum-type-check-examples)
+    - [Generic type check examples](#generic-type-check-examples)
+    - [Field value equality check examples](#field-value-equality-check-examples)
 
 ## Dictionary extension methods
 
 Dictator extends `Dictionary<string, object>` with a set of extension methods which are grouped into several operation categories depending on their functionality. These categories are for example include operations for getting, setting or checking fields and other methods which operates over the entire dictionary object.
 
-### Standard field set and get operations
+### Field set and get operations
 
 Field set and get operations consists of a list of methods which are used to store and retrieve data out of the dictionary in specified format or type. Types which are supported include `bool`, `byte`, `short`, `int`, `long`, `float`, `double`, `decimal`, `DateTime`, `string`, `object`, `Dictionary<string, object>` (aliased as document), `enum` and `List<T>`.
+
+#### Basic types examples
 
 ```
 var document = new Dictionary<string, object>()
@@ -65,7 +75,7 @@ var intNumber = document.Int("longBar");
 var bar = document.Object<int>("bar");
 ```
 
-### DateTime field set and get operations
+#### DateTime type examples
 
 ```
 var document = new Dictionary<string, object>()
@@ -86,7 +96,7 @@ var stringConvertedToDateTime = document.DateTime("dateTime2");
 var longConvertedToDateTime = document.DateTime("dateTime3");
 ```
 
-### Enum field set and get operations
+#### Enum type examples
 
 ```
 var document = new Dictionary<string, object>()
@@ -105,7 +115,7 @@ var enum2 = document.Enum<DateTimeFormat>("enum2");
 var enum3 = document.Enum<DateTimeFormat>("enum3");
 ```
 
-### List field set and get operations
+#### List of objects examples
 
 ```
 var document = new Dictionary<string, object>()
@@ -115,7 +125,7 @@ var list1 = document.List<int>("list1");
 var list1Size = document.ListSize("list1");
 ```
 
-### Nested field set and get operations
+#### Nested fields examples
 
 ```
 var document = new Dictionary<string, object>()
@@ -137,4 +147,115 @@ var document = new Dictionary<string, object>()
 var string1 = document.String("string1");
 var string2 = document.String("foo.string2");
 var string3 = document.String("foo.bar.string3");
+```
+
+### Field check operations
+
+Field check operations consists of a set of methods which checks the presence of a field or it's specific type within the document.
+
+#### Exact type check examples
+
+Exact type checking operations returns true only if the specified field exists and contains exact type.
+
+```
+var document = new Dictionary<string, object>()
+    .String("foo", "foo string value")
+    .Int("bar", 12345)
+    .Bool("embedded.foo", true);
+
+// true
+var isString = document.IsString("foo");
+// true
+var isInt = document.IsInt("bar");
+// true
+var isBool = document.IsBool("embedded.foo");
+// false
+var isLong = document.IsLong("bar");
+// false
+var isDateTime = document.IsDateTime("nonExistingField");
+```
+
+#### Null check examples
+
+```
+var document = new Dictionary<string, object>()
+    .Object("foo", null)
+    .Int("bar", 12345);
+
+// true
+var isNull = document.IsNull("foo");
+// true
+var isNotNull = document.IsNotNull("bar");
+// false
+var isNull2 = document.IsNull("nonExistingField");
+// false
+var isNotNull2 = document.IsNotNull("nonExistingField");
+```
+
+#### DateTime type check examples
+
+```
+var document = new Dictionary<string, object>()
+    .DateTime("dateTime1", DateTime.UtcNow)
+    .DateTime("dateTime2", DateTime.UtcNow, DateTimeFormat.String)
+    .DateTime("dateTime3", DateTime.UtcNow, DateTimeFormat.UnixTimeStamp);
+
+// true
+var isDateTime1 = document.IsDateTime("dateTime1");
+// true
+var isDateTime2 = document.IsDateTime("dateTime2", DateTimeFormat.String);
+// true
+var isDateTime3 = document.IsDateTime("dateTime3", DateTimeFormat.UnixTimeStamp);
+```
+
+#### Enum type check examples
+
+```
+var document = new Dictionary<string, object>()
+    .Enum("enum1", DateTimeFormat.Object)
+    .Int("enum2", 0)
+    .String("enum3", "object");
+
+// true
+var isEnum1 = document.IsEnum("enum1");
+// true
+var isEnum2 = document.IsEnum<DateTimeFormat>("enum2");
+// true
+var isEnum3 = document.IsEnum<DateTimeFormat>("enum3");
+// false
+var isEnum4 = document.IsEnum("enum2");
+// false
+var isEnum5 = document.IsEnum("enum3");
+```
+
+#### Generic type check examples
+
+```
+var document = new Dictionary<string, object>()
+    .String("foo", "foo string value")
+    .Int("bar", 12345);
+
+// true
+var isString = document.IsType<string>("foo");
+// true
+var isInt = document.IsType("bar", typeof(int));
+// false
+var isBool = document.IsType<bool>("nonExistingField");
+```
+
+#### Field value equality check examples
+
+Note: Object's `Equals` method is used for value comparison.
+
+```
+var document = new Dictionary<string, object>()
+    .String("foo", "foo string value")
+    .Int("bar", 12345);
+
+// true
+var isEqual1 = document.IsEqual("foo", "foo string value");
+// true
+var isEqual2 = document.IsEqual("bar", 12345);
+// false
+var isEqual3 = document.IsEqual("nonExistingField", "some string value");
 ```
