@@ -876,6 +876,13 @@ namespace Dictator
         /// <summary>
         /// Checks if specified field has given type value.
         /// </summary>
+        public static bool IsType<T>(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            return IsType(dictionary, fieldPath, typeof(T));
+        }
+        /// <summary>
+        /// Checks if specified field has given type value.
+        /// </summary>
         public static bool IsType(this Dictionary<string, object> dictionary, string fieldPath, Type type)
         {
             var isValid = false;

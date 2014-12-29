@@ -314,6 +314,9 @@ namespace Dictator.Tests
             
             Assert.IsTrue(doc1.IsType("int1", 123456.GetType()));
             Assert.IsTrue(doc1.IsType("string1", "test1".GetType()));
+            
+            Assert.IsTrue(doc1.IsType<int>("int1"));
+            Assert.IsTrue(doc1.IsType<string>("string1"));
 
             Assert.IsFalse(doc1.IsType("null1", 123456.GetType()));
             Assert.IsFalse(doc1.IsType("int1", "test1".GetType()));
