@@ -145,6 +145,24 @@ namespace Dictator.ConsoleTests
             Console.WriteLine(string3);
         }
         
+        public static void FieldExistenceCheckOperations()
+        {
+            var document = new Dictionary<string, object>()
+                .String("foo", "foo string value")
+                .Object("bar", null);
+            
+            // true
+            var stringFieldExists = document.Has("foo");
+            // true
+            var nullFieldExists = document.Has("bar");
+            // false
+            var fieldExists = document.Has("nonExistingField");
+            
+            Console.WriteLine(stringFieldExists);
+            Console.WriteLine(nullFieldExists);
+            Console.WriteLine(fieldExists);
+        }
+        
         public static void ExactTypeCheckOperations()
         {
             var document = new Dictionary<string, object>()

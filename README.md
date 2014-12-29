@@ -37,6 +37,7 @@ if (document.IsString("foo") && document.IsInt("bar") && document.IsString("embe
     - [List of objects examples](#list-of-objects-examples)
     - [Nested fields examples](#nested-fields-examples)
   - [Field check operations](#field-check-operations)
+    - [Field existence check examples](#field-existence-check-examples)
     - [Exact type check examples](#exact-type-check-examples)
     - [Null check examples](#null-check-examples)
     - [DateTime type check examples](#datetime-type-check-examples)
@@ -152,6 +153,21 @@ var string3 = document.String("foo.bar.string3");
 ### Field check operations
 
 Field check operations consists of a set of methods which checks the presence of a field or it's specific type within the document.
+
+#### Field existence check examples
+
+```
+var document = new Dictionary<string, object>()
+    .String("foo", "foo string value")
+    .Object("bar", null);
+
+// true
+var stringFieldExists = document.Has("foo");
+// true
+var nullFieldExists = document.Has("bar");
+// false
+var fieldExists = document.Has("nonExistingField");
+```
 
 #### Exact type check examples
 
