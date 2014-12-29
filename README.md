@@ -31,19 +31,19 @@ if (document.IsString("foo") && document.IsInt("bar") && document.IsString("embe
 
 - [Dictionary extension methods](#dictionary-extension-methods)
   - [Field set and get operations](#field-set-and-get-operations)
-    - [Basic types examples](#basic-types-examples)
-    - [DateTime type examples](#datetime-type-examples)
-    - [Enum type examples](#enum-type-examples)
-    - [List of objects examples](#list-of-objects-examples)
-    - [Nested fields examples](#nested-fields-examples)
+    - [Basic types](#basic-types)
+    - [DateTime type](#datetime-type)
+    - [Enum type](#enum-type)
+    - [List of objects](#list-of-objects)
+    - [Nested fields](#nested-fields)
   - [Field check operations](#field-check-operations)
-    - [Field existence check examples](#field-existence-check-examples)
-    - [Exact type check examples](#exact-type-check-examples)
-    - [Null check examples](#null-check-examples)
-    - [DateTime type check examples](#datetime-type-check-examples)
-    - [Enum type check examples](#enum-type-check-examples)
-    - [Generic type check examples](#generic-type-check-examples)
-    - [Field value equality check examples](#field-value-equality-check-examples)
+    - [Field existence check](#field-existence-check)
+    - [Exact type check](#exact-type-check)
+    - [Null check](#null-check)
+    - [DateTime type check](#datetime-type-check)
+    - [Enum type check](#enum-type-check)
+    - [Generic type check](#generic-type-check)
+    - [Field value equality check](#field-value-equality-check)
   - [Deleting fields](#deleting-fields)
   - [Cloning documents](#cloning-documents)
   - [Merging documents](#merging-documents)
@@ -56,7 +56,7 @@ Dictator extends `Dictionary<string, object>` with a set of extension methods wh
 
 Field set and get operations consists of a list of methods which are used to store and retrieve data out of the dictionary in specified format or type. Types which are supported include `bool`, `byte`, `short`, `int`, `long`, `float`, `double`, `decimal`, `DateTime`, `string`, `object`, `Dictionary<string, object>` (aliased as document), `enum` and `List<T>`.
 
-#### Basic types examples
+#### Basic types
 
 ```
 var document = new Dictionary<string, object>()
@@ -79,7 +79,7 @@ var intNumber = document.Int("longBar");
 var bar = document.Object<int>("bar");
 ```
 
-#### DateTime type examples
+#### DateTime type
 
 ```
 var document = new Dictionary<string, object>()
@@ -100,7 +100,7 @@ var stringConvertedToDateTime = document.DateTime("dateTime2");
 var longConvertedToDateTime = document.DateTime("dateTime3");
 ```
 
-#### Enum type examples
+#### Enum type
 
 ```
 var document = new Dictionary<string, object>()
@@ -119,7 +119,7 @@ var enum2 = document.Enum<DateTimeFormat>("enum2");
 var enum3 = document.Enum<DateTimeFormat>("enum3");
 ```
 
-#### List of objects examples
+#### List of objects
 
 ```
 var document = new Dictionary<string, object>()
@@ -129,7 +129,7 @@ var list1 = document.List<int>("list1");
 var list1Size = document.ListSize("list1");
 ```
 
-#### Nested fields examples
+#### Nested fields
 
 ```
 var document = new Dictionary<string, object>()
@@ -157,7 +157,7 @@ var string3 = document.String("foo.bar.string3");
 
 Field check operations consists of a set of methods which checks the presence of a field or it's specific type within the document.
 
-#### Field existence check examples
+#### Field existence check
 
 ```
 var document = new Dictionary<string, object>()
@@ -172,7 +172,7 @@ var nullFieldExists = document.Has("bar");
 var fieldExists = document.Has("nonExistingField");
 ```
 
-#### Exact type check examples
+#### Exact type check
 
 Exact type checking operations returns true only if the specified field exists and contains exact type.
 
@@ -194,7 +194,7 @@ var isLong = document.IsLong("bar");
 var isDateTime = document.IsDateTime("nonExistingField");
 ```
 
-#### Null check examples
+#### Null check
 
 ```
 var document = new Dictionary<string, object>()
@@ -211,7 +211,7 @@ var isNull2 = document.IsNull("nonExistingField");
 var isNotNull2 = document.IsNotNull("nonExistingField");
 ```
 
-#### DateTime type check examples
+#### DateTime type check
 
 ```
 var document = new Dictionary<string, object>()
@@ -227,7 +227,7 @@ var isDateTime2 = document.IsDateTime("dateTime2", DateTimeFormat.String);
 var isDateTime3 = document.IsDateTime("dateTime3", DateTimeFormat.UnixTimeStamp);
 ```
 
-#### Enum type check examples
+#### Enum type check
 
 ```
 var document = new Dictionary<string, object>()
@@ -247,7 +247,7 @@ var isEnum4 = document.IsEnum("enum2");
 var isEnum5 = document.IsEnum("enum3");
 ```
 
-#### Generic type check examples
+#### Generic type check
 
 ```
 var document = new Dictionary<string, object>()
@@ -262,7 +262,7 @@ var isInt = document.IsType("bar", typeof(int));
 var isBool = document.IsType<bool>("nonExistingField");
 ```
 
-#### Field value equality check examples
+#### Field value equality check
 
 Note: Object's `Equals` method is used for value comparison.
 

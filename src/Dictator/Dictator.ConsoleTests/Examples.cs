@@ -310,7 +310,7 @@ namespace Dictator.ConsoleTests
         
         public static void CloningDocuments()
         {
-            var document = Dictator.New()
+            var document = new Dictionary<string, object>()
                 .String("foo", "string value")
                 .Int("bar", 12345)
                 .String("baz.foo", "other string value");
@@ -330,7 +330,7 @@ namespace Dictator.ConsoleTests
         
         public static void MergingDocuments()
         {
-            var document1 = Dictator.New()
+            var document1 = new Dictionary<string, object>()
                 .String("foo", "string value")
                 .Int("bar", 12345);
             
