@@ -144,7 +144,7 @@ namespace Dictator.Tests
             var document = Dictator.New();
             
             var doc1 = Dictator.New()
-                .Object("document1", document);
+                .Document("document1", document);
             
             Assert.IsTrue(doc1.Document("document1") == document);
         }
@@ -205,13 +205,13 @@ namespace Dictator.Tests
         {
             var doc1 = Dictator.New()
                 .Enum("enum1", DateTimeFormat.Object, EnumFormat.Integer)
-                .Int("byte", (byte)1)
+                .Byte("byte", 1)
                 .Object("sbyte", (sbyte)1)
-                .Short("short", (short)1)
+                .Short("short", 1)
                 .Object("ushort", (ushort)1)
-                .Int("int", (int)1)
+                .Int("int", 1)
                 .Object("uint", (uint)1)
-                .Long("long", (long)1)
+                .Long("long", 1)
                 .Object("ulong", (ulong)1);
             
             Assert.IsTrue(doc1.Enum<DateTimeFormat>("enum1") == DateTimeFormat.Object);
