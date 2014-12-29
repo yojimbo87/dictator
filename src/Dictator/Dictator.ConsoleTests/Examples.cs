@@ -288,5 +288,61 @@ namespace Dictator.ConsoleTests
             Console.WriteLine(isEqual2);
             Console.WriteLine(isEqual3);
         }
+        
+        public static void DeletingFields()
+        {
+            var document = new Dictionary<string, object>()
+                .String("foo", "string value")
+                .Int("bar", 12345)
+                .String("baz.foo", "other string value");
+            
+            document.Drop("foo", "bar");
+            
+            // false
+            var hasFoo = document.Has("foo");
+            // false
+            var hasBar = document.Has("bar");
+            
+            Console.WriteLine(hasFoo);
+            Console.WriteLine(hasBar);
+        }
+        
+        
+        public static void CloningDocuments()
+        {
+            var document = Dictator.New()
+                .String("foo", "string value")
+                .Int("bar", 12345)
+                .String("baz.foo", "other string value");
+            
+            // creates deep clone of the document
+            var clone1 = document.Clone();
+            
+            // creates deep clone with only specified fields
+            var clone2 = document.CloneOnly("foo", "bar");
+            
+            // creates deep clone without specified fields
+            var clone3 = document.CloneExcept("baz.foo");
+            
+            Console.WriteLine(clone2.Has("baz.foo"));
+            Console.WriteLine(clone3.Has("baz.foo"));
+        }
+        
+        public static void MergingDocuments()
+        {
+            var document1 = Dictator.New()
+                .String("foo", "string value")
+                .Int("bar", 12345);
+            
+            var document2 = Dictator.New()
+                .String("foo", "new string value")
+                .Int("baz", 54321);
+            
+            // merges document2 into document1 and overwrites conflicting fields
+            document1.Merge(document2);
+            
+            // merges document2 into document1 and keeps conflicting fields
+            document1.Merge(document2, MergeBehavior.KeepFields);
+        }
     }
 }

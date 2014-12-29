@@ -18,13 +18,17 @@ namespace Dictator.ConsoleTests
             //Examples.ListSetGetOperations();
             //Examples.NestedSetGetOperations();
             
-            Examples.FieldExistenceCheckOperations();
+            //Examples.FieldExistenceCheckOperations();
             //Examples.ExactTypeCheckOperations();
             //Examples.NullTypeCheckOperations();
             //Examples.DateTimeTypeCheckOperations();
             //Examples.EnumTypeCheckOperations();
             //Examples.GenericTypeCheckOperations();
             //Examples.FieldValueEqualityCheckOperations();
+            
+            Examples.DeletingFields();
+            //Examples.CloningDocuments();
+            //Examples.MergingDocuments();
             
             Console.WriteLine("\n\nEND");
             Console.ReadLine();
