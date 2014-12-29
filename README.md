@@ -47,6 +47,7 @@ if (document.IsString("foo") && document.IsInt("bar") && document.IsString("embe
   - [Deleting fields](#deleting-fields)
   - [Cloning documents](#cloning-documents)
   - [Merging documents](#merging-documents)
+  - [Convert document to strongly typed object](#convert-document-to-strongly-typed-object)
 
 ## Dictionary extension methods
 
@@ -329,4 +330,17 @@ document1.Merge(document2);
 
 // merges document2 into document1 and keeps conflicting fields
 document1.Merge(document2, MergeBehavior.KeepFields);
+```
+
+### Convert document to strongly typed object
+
+```
+var document = new Dictionary<string, object>()
+    .String("Foo", "string value")
+    .Int("Bar", 12345);
+
+var dummy = document.ToObject<Dummy>();
+
+var foo = dummy.Foo;
+var bar = dummy.Bar;
 ```

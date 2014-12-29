@@ -26,9 +26,10 @@ namespace Dictator.ConsoleTests
             //Examples.GenericTypeCheckOperations();
             //Examples.FieldValueEqualityCheckOperations();
             
-            Examples.DeletingFields();
+            //Examples.DeletingFields();
             //Examples.CloningDocuments();
             //Examples.MergingDocuments();
+            Examples.ConvertDocumentToStronglyTypedObject();
             
             Console.WriteLine("\n\nEND");
             Console.ReadLine();

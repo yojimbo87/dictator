@@ -344,5 +344,20 @@ namespace Dictator.ConsoleTests
             // merges document2 into document1 and keeps conflicting fields
             document1.Merge(document2, MergeBehavior.KeepFields);
         }
+        
+        public static void ConvertDocumentToStronglyTypedObject()
+        {
+            var document = new Dictionary<string, object>()
+                .String("Foo", "string value")
+                .Int("Bar", 12345);
+            
+            var dummy = document.ToObject<Dummy>();
+            
+            var foo = dummy.Foo;
+            var bar = dummy.Bar;
+            
+            Console.WriteLine(foo);
+            Console.WriteLine(bar);
+        }
     }
 }
