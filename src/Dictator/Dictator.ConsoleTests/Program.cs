@@ -10,7 +10,13 @@ namespace Dictator.ConsoleTests
         {
             //DictionaryTest();
             //ListTest();
-            PrintTest();
+            
+            //Examples.GeneralUsage();
+            //Examples.SimpleSetGetOperations();
+            //Examples.DateTimeSetGetOperations();
+            //Examples.EnumSetGetOperations();
+            //Examples.ListSetGetOperations();
+            Examples.NestedSetGetOperations();
             
             Console.WriteLine("\n\nEND");
             Console.ReadLine();
@@ -47,32 +53,6 @@ namespace Dictator.ConsoleTests
             
             Console.WriteLine(JSON.ToNiceJSON(doc1, new JSONParameters()));
             Console.WriteLine(foo);
-        }
-        
-        static void PrintTest()
-        {
-            var document = new Dictionary<string, object>()
-                .String("foo", "foo string value")
-                .Int("bar", 12345)
-                .String("embedded.foo", "embedded foo string value");
-            
-            // document object would look in JSON representation as follows:
-            // {
-            //     "foo": "foo string value",
-            //     "bar": 12345,
-            //     "embedded": {
-            //         "foo": "embedded foo string value"
-            //      }
-            // }
-                
-            if (document.IsString("foo") && document.IsInt("bar") && document.IsString("embedded.foo"))
-            {
-                var foo = document.String("foo");
-                var bar = document.Int("bar");
-                var embeddedFoo = document.String("embedded.foo");
-                
-                Console.WriteLine("{0}, {1}, {2}", foo, bar, embeddedFoo);
-            }
         }
     }
 }
