@@ -29,7 +29,11 @@ namespace Dictator.ConsoleTests
             //Examples.DeletingFields();
             //Examples.CloningDocuments();
             //Examples.MergingDocuments();
-            Examples.ConvertDocumentToStronglyTypedObject();
+            //Examples.ConvertDocumentToStronglyTypedObject();
+            
+            //Examples.ConvertDocumentListToGenericList();
+            //Examples.ConvertStronglyTypedObjectToDocument();
+            Examples.ConvertGenericListToDocumentList();
             
             Console.WriteLine("\n\nEND");
             Console.ReadLine();

@@ -32,6 +32,8 @@ namespace Dictator.ConsoleTests
                 Console.WriteLine("{0}, {1}, {2}", foo, bar, embeddedFoo);
             }
         }
+
+        #region Set and get operations
         
         public static void BasicSetGetOperations()
         {
@@ -144,6 +146,10 @@ namespace Dictator.ConsoleTests
             Console.WriteLine(string2);
             Console.WriteLine(string3);
         }
+        
+        #endregion
+        
+        #region Check operations
         
         public static void FieldExistenceCheckOperations()
         {
@@ -289,6 +295,8 @@ namespace Dictator.ConsoleTests
             Console.WriteLine(isEqual3);
         }
         
+        #endregion
+        
         public static void DeletingFields()
         {
             var document = new Dictionary<string, object>()
@@ -306,7 +314,6 @@ namespace Dictator.ConsoleTests
             Console.WriteLine(hasFoo);
             Console.WriteLine(hasBar);
         }
-        
         
         public static void CloningDocuments()
         {
@@ -359,5 +366,70 @@ namespace Dictator.ConsoleTests
             Console.WriteLine(foo);
             Console.WriteLine(bar);
         }
+        
+        #region Dictator static methods
+        
+        public static void ConvertDocumentListToGenericList()
+        {
+            var documents = new List<Dictionary<string, object>>
+            {
+                new Dictionary<string, object>()
+                    .String("Foo", "string value one")
+                    .Int("Bar", 1),
+                new Dictionary<string, object>()
+                    .String("Foo", "string value two")
+                    .Int("Bar", 2),
+                new Dictionary<string, object>()
+                    .String("Foo", "string value three")
+                    .Int("Bar", 3)
+            };
+            
+            var dummies = Dictator.ToList<Dummy>(documents);
+            
+            foreach (var dummy in dummies)
+            {
+                var foo = dummy.Foo;
+                var bar = dummy.Bar;
+            }
+            
+            dummies.ForEach(d => Console.WriteLine(d.Foo + " - " + d.Bar));
+        }
+        
+        public static void ConvertStronglyTypedObjectToDocument()
+        {
+            var dummy = new Dummy();
+            dummy.Foo = "string value";
+            dummy.Bar = 12345;
+            
+            var document = Dictator.ToDocument(dummy);
+            
+            var foo = document.String("Foo");
+            var bar = document.Int("Bar");
+            
+            Console.WriteLine(foo);
+            Console.WriteLine(bar);
+        }
+        
+        public static void ConvertGenericListToDocumentList()
+        {
+            var dummies = new List<Dummy>
+            {
+                new Dummy { Foo = "string value one", Bar = 1 },
+                new Dummy { Foo = "string value two", Bar = 2 },
+                new Dummy { Foo = "string value three", Bar = 3 }
+            };
+            
+            var documents = Dictator.ToDocuments(dummies);
+            
+            foreach (var document in documents)
+            {
+                var foo = document.String("Foo");
+                var bar = document.Int("Bar");
+            }
+            
+            documents.ForEach(d => Console.WriteLine(d.String("Foo") + " - " + d.Int("Bar")));
+        }
+        
+        #endregion
     }
 }

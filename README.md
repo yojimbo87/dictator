@@ -48,6 +48,11 @@ if (document.IsString("foo") && document.IsInt("bar") && document.IsString("embe
   - [Cloning documents](#cloning-documents)
   - [Merging documents](#merging-documents)
   - [Convert document to strongly typed object](#convert-document-to-strongly-typed-object)
+- [Dictator static methods](#dictator-static-methods)
+  - [Convert document list to generic list](#convert-document-list-to-generic-list)
+  - [Convert strongly typed object to document](#convert-strongly-typed-object-to-document)
+  - [Convert generic list to document list](#convert-generic-list-to-document-list)
+- [Global settings](#global-settings)
 
 ## Dictionary extension methods
 
@@ -344,3 +349,73 @@ var dummy = document.ToObject<Dummy>();
 var foo = dummy.Foo;
 var bar = dummy.Bar;
 ```
+
+## Dictator static methods
+
+`Dictator` class consists of several static methods which provide additional functionality for manipulating documents.
+
+### Convert document list to generic list
+
+```csharp
+var documents = new List<Dictionary<string, object>>
+{
+    new Dictionary<string, object>()
+        .String("Foo", "string value one")
+        .Int("Bar", 1),
+    new Dictionary<string, object>()
+        .String("Foo", "string value two")
+        .Int("Bar", 2),
+    new Dictionary<string, object>()
+        .String("Foo", "string value three")
+        .Int("Bar", 3)
+};
+
+var dummies = Dictator.ToList<Dummy>(documents);
+
+foreach (var dummy in dummies)
+{
+    var foo = dummy.Foo;
+    var bar = dummy.Bar;
+}
+```
+
+### Convert strongly typed object to document
+
+```csharp
+var dummy = new Dummy();
+dummy.Foo = "string value";
+dummy.Bar = 12345;
+
+var document = Dictator.ToDocument(dummy);
+
+var foo = document.String("Foo");
+var bar = document.Int("Bar");
+```
+
+### Convert generic list to document list
+
+```csharp
+var dummies = new List<Dummy>
+{
+    new Dummy { Foo = "string value one", Bar = 1 },
+    new Dummy { Foo = "string value two", Bar = 2 },
+    new Dummy { Foo = "string value three", Bar = 3 }
+};
+
+var documents = Dictator.ToDocuments(dummies);
+
+foreach (var document in documents)
+{
+    var foo = document.String("Foo");
+    var bar = document.Int("Bar");
+}
+```
+
+## Global settings
+
+`Dictator.Settings` object contains several properties which determine and affects how certain operations are perfomed. These include:
+
+- `Dictator.Settings.EnumFormat` - global enum serialization format (default is set to `EnumFormat.Object`)
+- `Dictator.Settings.MergeBehavior` - global documents merge behavior (default is set to `MergeBehavior.OverwriteFields`)
+- `Dictator.Settings.DateTimeFormat` - global DateTime serialization format (default is set to `DateTimeFormat.Object`)
+- `Dictator.Settings.DateTimeStringFormat` - global DateTime string format which will be used when serializing DateTime object in string format (default is set to `yyyy-MM-ddTHH:mm:ss.fffZ`)
