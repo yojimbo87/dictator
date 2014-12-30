@@ -2,7 +2,7 @@
 
 Dictator is a C# library which provides functionality for retrieving, storing and manipulating data inside `Dictionary<string, object>`. Dictionary that consists of string and object key-value pairs serves as the closest .NET low level representation of native JSON documents but for example lacks support for easy access to field data which might be either deeply nested or hard to retrieve without considerable amount of code. Aim of dictator is to help with common tasks that are used to work with JSON-like data structure representation in .NET. Below is a simple example which sets few fields, checks for their types and retrieves their values in specified format.
 
-```
+```csharp
 var document = new Dictionary<string, object>()
     .String("foo", "foo string value")
     .Int("bar", 12345)
@@ -59,7 +59,7 @@ Field set and get operations consists of a list of methods which are used to sto
 
 #### Basic types
 
-```
+```csharp
 var document = new Dictionary<string, object>()
     .String("foo", "string value")
     .Int("bar", 123)
@@ -82,7 +82,7 @@ var bar = document.Object<int>("bar");
 
 #### DateTime type
 
-```
+```csharp
 var document = new Dictionary<string, object>()
     // stored as native DateTime object
     .DateTime("dateTime1", DateTime.UtcNow)
@@ -103,7 +103,7 @@ var longConvertedToDateTime = document.DateTime("dateTime3");
 
 #### Enum type
 
-```
+```csharp
 var document = new Dictionary<string, object>()
     // stored as native enum
     .Enum("enum1", DateTimeFormat.Object)
@@ -122,7 +122,7 @@ var enum3 = document.Enum<DateTimeFormat>("enum3");
 
 #### List of objects
 
-```
+```csharp
 var document = new Dictionary<string, object>()
     .List("list1", new List<int>() { 1, 2, 3 });
 
@@ -132,7 +132,7 @@ var list1Size = document.ListSize("list1");
 
 #### Nested fields
 
-```
+```csharp
 var document = new Dictionary<string, object>()
     .String("string1", "string value 1")
     .String("foo.string2", "string value 2")
@@ -160,7 +160,7 @@ Field check operations consists of a set of methods which checks the presence of
 
 #### Field existence check
 
-```
+```csharp
 var document = new Dictionary<string, object>()
     .String("foo", "foo string value")
     .Object("bar", null);
@@ -177,7 +177,7 @@ var fieldExists = document.Has("nonExistingField");
 
 Exact type checking operations returns true only if the specified field exists and contains exact type.
 
-```
+```csharp
 var document = new Dictionary<string, object>()
     .String("foo", "foo string value")
     .Int("bar", 12345)
@@ -197,7 +197,7 @@ var isDateTime = document.IsDateTime("nonExistingField");
 
 #### Null check
 
-```
+```csharp
 var document = new Dictionary<string, object>()
     .Object("foo", null)
     .Int("bar", 12345);
@@ -214,7 +214,7 @@ var isNotNull2 = document.IsNotNull("nonExistingField");
 
 #### DateTime type check
 
-```
+```csharp
 var document = new Dictionary<string, object>()
     .DateTime("dateTime1", DateTime.UtcNow)
     .DateTime("dateTime2", DateTime.UtcNow, DateTimeFormat.String)
@@ -230,7 +230,7 @@ var isDateTime3 = document.IsDateTime("dateTime3", DateTimeFormat.UnixTimeStamp)
 
 #### Enum type check
 
-```
+```csharp
 var document = new Dictionary<string, object>()
     .Enum("enum1", DateTimeFormat.Object)
     .Int("enum2", 0)
@@ -250,7 +250,7 @@ var isEnum5 = document.IsEnum("enum3");
 
 #### Generic type check
 
-```
+```csharp
 var document = new Dictionary<string, object>()
     .String("foo", "foo string value")
     .Int("bar", 12345);
@@ -267,7 +267,7 @@ var isBool = document.IsType<bool>("nonExistingField");
 
 Note: Object's `Equals` method is used for value comparison.
 
-```
+```csharp
 var document = new Dictionary<string, object>()
     .String("foo", "foo string value")
     .Int("bar", 12345);
@@ -282,7 +282,7 @@ var isEqual3 = document.IsEqual("nonExistingField", "some string value");
 
 ### Deleting fields
 
-```
+```csharp
 var document = new Dictionary<string, object>()
     .String("foo", "string value")
     .Int("bar", 12345)
@@ -298,7 +298,7 @@ var hasBar = document.Has("bar");
 
 ### Cloning documents
 
-```
+```csharp
 var document = new Dictionary<string, object>()
     .String("foo", "string value")
     .Int("bar", 12345)
@@ -316,7 +316,7 @@ var clone3 = document.CloneExcept("baz.foo");
 
 ### Merging documents
 
-```
+```csharp
 var document1 = new Dictionary<string, object>()
     .String("foo", "string value")
     .Int("bar", 12345);
@@ -334,7 +334,7 @@ document1.Merge(document2, MergeBehavior.KeepFields);
 
 ### Convert document to strongly typed object
 
-```
+```csharp
 var document = new Dictionary<string, object>()
     .String("Foo", "string value")
     .Int("Bar", 12345);
