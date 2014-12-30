@@ -8,6 +8,9 @@ namespace Dictator
 {
     public static class Dictator
     {
+        /// <summary>
+        /// Contains global settings which affects various operations.
+        /// </summary>
         public static DictatorSettings Settings { get; private set; }
         
         public static Dictionary<string, object> New()
