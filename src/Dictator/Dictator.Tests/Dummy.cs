@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Dictator;
 
 namespace Dictator.Tests
 {
@@ -13,5 +14,17 @@ namespace Dictator.Tests
         public List<Dictionary<string, object>> Dictionaries { get; set; }
         
         public Dictionary<string, string> PrimitiveDictionary { get; set; }
+        
+        [AliasField("myCustomField")]
+        public string PropertyToBeAliased { get; set; }
+        
+        [IgnoreNullValue]
+        public string NullProperty { get; set; }
+        
+        [IgnoreNullValue]
+        public string NotNullProperty { get; set; }
+        
+        [IgnoreField]
+        public string IngnoredPropety { get; set; }
     }
 }

@@ -31,11 +31,14 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AliasField.cs" />
     <Compile Include="DateTimeFormat.cs" />
     <Compile Include="Dictator.cs" />
     <Compile Include="DictatorSettings.cs" />
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="EnumFormat.cs" />
+    <Compile Include="IgnoreField.cs" />
+    <Compile Include="IgnoreNullValue.cs" />
     <Compile Include="InvalidFieldException.cs" />
     <Compile Include="InvalidFieldTypeException.cs" />
     <Compile Include="MergeBehavior.cs" />

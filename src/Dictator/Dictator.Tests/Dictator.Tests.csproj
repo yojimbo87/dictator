@@ -52,6 +52,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomAttributeTests.cs" />
     <Compile Include="DocumentOperationsTests.cs" />
     <Compile Include="Dummy.cs" />
     <Compile Include="FieldCheckTests.cs" />

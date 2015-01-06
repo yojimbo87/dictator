@@ -52,6 +52,7 @@ if (document.IsString("foo") && document.IsInt("bar") && document.IsString("embe
   - [Convert document list to generic list](#convert-document-list-to-generic-list)
   - [Convert strongly typed object to document](#convert-strongly-typed-object-to-document)
   - [Convert generic list to document list](#convert-generic-list-to-document-list)
+- [Property attributes](#property-attributes)
 - [Global settings](#global-settings)
 
 ## Dictionary extension methods
@@ -411,11 +412,19 @@ foreach (var document in documents)
 }
 ```
 
+## Property attributes
+
+Classes which are meant to have their properties converted to or from document format can use the following attributes:
+
+- `AliasField` - Specified alias will be used as field name to convert property to or from document format.
+- `IgnoreField` - Ignores property during when converting object to or from document format.
+- `IgnoreNullValue` - Ignores property if it contains null value when converting object to or from document format.
+
 ## Global settings
 
 `Dictator.Settings` object contains several properties which determine and affects how certain operations are perfomed. These include:
 
-- `Dictator.Settings.EnumFormat` - global enum serialization format (default is set to `EnumFormat.Object`)
-- `Dictator.Settings.MergeBehavior` - global documents merge behavior (default is set to `MergeBehavior.OverwriteFields`)
-- `Dictator.Settings.DateTimeFormat` - global DateTime serialization format (default is set to `DateTimeFormat.Object`)
-- `Dictator.Settings.DateTimeStringFormat` - global DateTime string format which will be used when serializing DateTime object in string format (default is set to `yyyy-MM-ddTHH:mm:ss.fffZ`)
+- `Dictator.Settings.EnumFormat` - Global enum serialization format (default is set to `EnumFormat.Object`).
+- `Dictator.Settings.MergeBehavior` - Global documents merge behavior (default is set to `MergeBehavior.OverwriteFields`).
+- `Dictator.Settings.DateTimeFormat` - Global DateTime serialization format (default is set to `DateTimeFormat.Object`).
+- `Dictator.Settings.DateTimeStringFormat` - Global DateTime string format which will be used when serializing DateTime object in string format (default is set to `yyyy-MM-ddTHH:mm:ss.fffZ`).
