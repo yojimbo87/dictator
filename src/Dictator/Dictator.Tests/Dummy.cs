@@ -15,6 +15,8 @@ namespace Dictator.Tests
         
         public Dictionary<string, string> PrimitiveDictionary { get; set; }
         
+        public MyEnum MyEnum { get; set; }
+        
         [AliasField("myCustomField")]
         public string PropertyToBeAliased { get; set; }
         
@@ -26,5 +28,12 @@ namespace Dictator.Tests
         
         [IgnoreField]
         public string IngnoredPropety { get; set; }
+    }
+    
+    public enum MyEnum
+    {
+        Option1,
+        Option2,
+        Option3
     }
 }

@@ -403,6 +403,7 @@ namespace Dictator.Tests
             root.Dictionary = documentParent;
             root.Dictionaries = documentChildren;
             root.PrimitiveDictionary = primitiveDictionary;
+            root.MyEnum = MyEnum.Option2;
             
             var document = Dictator.ToDocument(root);
             
@@ -433,6 +434,9 @@ namespace Dictator.Tests
             
             Assert.AreEqual(1, document.Object<Dictionary<string, string>>("PrimitiveDictionary").Count);
             Assert.AreEqual(root.PrimitiveDictionary["aaa"], document.Object<Dictionary<string, string>>("PrimitiveDictionary")["aaa"]);
+            
+            Assert.AreEqual((int)root.MyEnum, document.Int("MyEnum"));
+            Assert.AreEqual(root.MyEnum, document.Enum<MyEnum>("MyEnum"));
         }
         
         [Test()]
