@@ -19,7 +19,7 @@ namespace Dictator.Tests
             var doc = Dictator.ToDocument(dummy);
             
             // 9 because Dummy class consists of numerous other properties
-            Assert.AreEqual(11, doc.Count);
+            Assert.AreEqual(12, doc.Count);
             Assert.AreEqual("foo string value", doc.String("Foo"));
             Assert.AreEqual("string value", doc.String("myCustomField"));
             Assert.IsFalse(doc.Has("NullProperty"));

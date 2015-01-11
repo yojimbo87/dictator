@@ -301,7 +301,7 @@ namespace Dictator.Tests
             var doc1 = Dictator.New()
                 .List("list1", list1);
             
-            Assert.AreEqual(doc1.ListSize("list1"), 3);
+            Assert.AreEqual(doc1.Size("list1"), 3);
         }
         
         #endregion

@@ -53,17 +53,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomAttributeTests.cs" />
+    <Compile Include="DeserializationTests.cs" />
     <Compile Include="DocumentOperationsTests.cs" />
-    <Compile Include="Dummy.cs" />
+    <Compile Include="Entities\ArrayEntity.cs" />
+    <Compile Include="Entities\Dummy.cs" />
     <Compile Include="FieldCheckTests.cs" />
     <Compile Include="FieldExceptionTests.cs" />
     <Compile Include="FieldGetSetTests.cs" />
+    <Compile Include="SerializationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dictator\Dictator.csproj">
       <Project>{D1380597-A804-4ABE-AF6E-E0994DB43AE4}</Project>
       <Name>Dictator</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

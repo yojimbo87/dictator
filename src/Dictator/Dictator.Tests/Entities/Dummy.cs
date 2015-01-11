@@ -14,6 +14,7 @@ namespace Dictator.Tests
         public List<Dictionary<string, object>> Dictionaries { get; set; }
         
         public Dictionary<string, string> PrimitiveDictionary { get; set; }
+        public string[] PrimitiveArray { get; set; }
         
         public MyEnum MyEnum { get; set; }
         

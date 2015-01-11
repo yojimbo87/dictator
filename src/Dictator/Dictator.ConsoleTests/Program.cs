@@ -16,6 +16,7 @@ namespace Dictator.ConsoleTests
             //Examples.DateTimeSetGetOperations();
             //Examples.EnumSetGetOperations();
             //Examples.ListSetGetOperations();
+            Examples.ArraySetGetOperations();
             //Examples.NestedSetGetOperations();
             
             //Examples.FieldExistenceCheckOperations();
@@ -33,7 +34,7 @@ namespace Dictator.ConsoleTests
             
             //Examples.ConvertDocumentListToGenericList();
             //Examples.ConvertStronglyTypedObjectToDocument();
-            Examples.ConvertGenericListToDocumentList();
+            //Examples.ConvertGenericListToDocumentList();
             
             Console.WriteLine("\n\nEND");
             Console.ReadLine();
