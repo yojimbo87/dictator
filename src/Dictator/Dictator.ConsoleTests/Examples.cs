@@ -113,11 +113,27 @@ namespace Dictator.ConsoleTests
                 .List("list1", new List<int>() { 1, 2, 3 });
             
             var list1 = document.List<int>("list1");
-            var list1Size = document.ListSize("list1");
+            var list1Size = document.Size("list1");
             
             list1.ForEach(x => Console.WriteLine(x));
             
             Console.WriteLine(list1Size);
+        }
+        
+        public static void ArraySetGetOperations()
+        {
+            var document = new Dictionary<string, object>()
+                .Array("array1", new int[] { 1, 2, 3 });
+            
+            var array1 = document.Array<int>("array1");
+            var array1Size = document.Size("array1");
+            
+            for (int i = 0; i < array1Size; i++)
+            {
+                Console.WriteLine(array1[i]);
+            }
+            
+            Console.WriteLine(array1Size);
         }
         
         public static void NestedSetGetOperations()

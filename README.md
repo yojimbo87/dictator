@@ -35,6 +35,7 @@ if (document.IsString("foo") && document.IsInt("bar") && document.IsString("embe
     - [DateTime type](#datetime-type)
     - [Enum type](#enum-type)
     - [List of objects](#list-of-objects)
+    - [Array of objects](#array-of-objects)
     - [Nested fields](#nested-fields)
   - [Field check operations](#field-check-operations)
     - [Field existence check](#field-existence-check)
@@ -133,7 +134,17 @@ var document = new Dictionary<string, object>()
     .List("list1", new List<int>() { 1, 2, 3 });
 
 var list1 = document.List<int>("list1");
-var list1Size = document.ListSize("list1");
+var list1Size = document.Size("list1");
+```
+
+#### Array of objects
+
+```csharp
+var document = new Dictionary<string, object>()
+    .Array("array1", new int[] { 1, 2, 3 });
+
+var array1 = document.Array<int>("array1");
+var array1Size = document.Size("array1");
 ```
 
 #### Nested fields
