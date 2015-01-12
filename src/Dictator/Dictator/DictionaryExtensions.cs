@@ -1308,6 +1308,11 @@ namespace Dictator
                             propertyInfo.SetValue(stronglyTypedObject, fieldValue, null);
                         }
                     }
+                    // property is Guid type
+                    else if (propertyInfo.PropertyType == typeof(Guid))
+                    {
+                        propertyInfo.SetValue(stronglyTypedObject, new Guid((string)fieldValue), null);
+                    }
                     // property is basic type
                     else
                     {
