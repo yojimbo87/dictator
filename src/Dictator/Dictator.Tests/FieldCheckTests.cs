@@ -207,6 +207,21 @@ namespace Dictator.Tests
         }
         
         [Test()]
+        public void Should_check_field_guid_value()
+        {
+            var doc1 = Dictator.New()
+                .Object("null1", null)
+                .Guid("guid1", Guid.NewGuid())
+                .String("foo", "test2");
+            
+            Assert.IsFalse(doc1.IsGuid("null1"));
+            Assert.IsTrue(doc1.IsGuid("guid1"));
+
+            Assert.IsFalse(doc1.IsGuid("nonExistingField"));
+            Assert.IsFalse(doc1.IsGuid("foo.nonExistingField"));
+        }
+        
+        [Test()]
         public void Should_check_field_string_value()
         {
             var doc1 = Dictator.New()

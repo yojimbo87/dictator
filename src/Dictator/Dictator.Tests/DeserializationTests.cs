@@ -222,5 +222,33 @@ namespace Dictator.Tests
                 Assert.AreEqual(dummy.Bar, doc.Array<Dummy>("GenericObjectArray")[i].Bar);
             }
         }
+        
+        [Test()]
+        public void Should_deserialize_guid()
+        {
+            var entity = new GuidEntity();
+            entity.MyGuid1 = Guid.NewGuid();
+            entity.MyGuid2 = Guid.NewGuid();
+            
+            var doc = Dictator.ToDocument(entity);
+            
+            Assert.AreEqual(entity.MyGuid1.ToString(), doc.Guid("MyGuid1").ToString());
+            Assert.AreEqual(entity.MyGuid2.ToString(), doc.Guid("MyGuid2").ToString());
+        }
+        
+        [Test()]
+        public void Should_deserialize_enum()
+        {
+            var entity = new EnumEntity();
+            entity.MyColor1 = Color.Red;
+            entity.MyColor2 = Color.Green;
+            entity.MyColor3 = Color.Blue;
+            
+            var doc = Dictator.ToDocument(entity);
+            
+            Assert.AreEqual(entity.MyColor1, doc.Enum<Color>("MyColor1"));
+            Assert.AreEqual(entity.MyColor2, doc.Enum<Color>("MyColor2"));
+            Assert.AreEqual(entity.MyColor3, doc.Enum<Color>("MyColor3"));
+        }
     }
 }

@@ -62,7 +62,7 @@ Dictator extends `Dictionary<string, object>` with a set of extension methods wh
 
 ### Field set and get operations
 
-Field set and get operations consists of a list of methods which are used to store and retrieve data out of the dictionary in specified format or type. Types which are supported include `bool`, `byte`, `short`, `int`, `long`, `float`, `double`, `decimal`, `DateTime`, `string`, `object`, `Dictionary<string, object>` (aliased as document), `enum` and `List<T>`.
+Field set and get operations consists of a list of methods which are used to store and retrieve data out of the dictionary in specified format or type. Types which are supported include `bool`, `byte`, `short`, `int`, `long`, `float`, `double`, `decimal`, `DateTime`, `Guid`, `string`, `object`, `Dictionary<string, object>` (aliased as document), `enum` and `List<T>`.
 
 #### Basic types
 

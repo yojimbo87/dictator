@@ -82,6 +82,17 @@ namespace Dictator.Tests
         }
         
         [Test()]
+        public void Should_set_and_get_guid_fields()
+        {
+            var guid = Guid.NewGuid();
+            
+            var doc1 = Dictator.New()
+                .Guid("guid1", guid);
+            
+            Assert.AreEqual(guid.ToString(), doc1.Guid("guid1").ToString());
+        }
+        
+        [Test()]
         public void Should_set_and_get_string_fields()
         {
             var doc1 = Dictator.New()
