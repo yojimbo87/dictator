@@ -135,6 +135,13 @@ var document = new Dictionary<string, object>()
 
 var list1 = document.List<int>("list1");
 var list1Size = document.Size("list1");
+var item2 = document.Int("list1[1]");
+            
+// change value of item at specified index
+document.Int("list1[1]", 222);
+
+// append new value to the list
+document.Int("list1[*]", 4);
 ```
 
 #### Array of objects
@@ -145,6 +152,10 @@ var document = new Dictionary<string, object>()
 
 var array1 = document.Array<int>("array1");
 var array1Size = document.Size("array1");
+var item2 = document.Int("array1[1]");
+            
+// change value of item at specified index
+document.Int("array1[1]", 222);
 ```
 
 #### Nested fields

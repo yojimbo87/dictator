@@ -315,6 +315,182 @@ namespace Dictator.Tests
             Assert.AreEqual(doc1.Size("list1"), 3);
         }
         
+        [Test()]
+        public void Should_set_list_and_get_item_at_specified_index()
+        {
+            var list1 = new List<Dictionary<string, object>>() 
+            {
+                Dictator.New()
+                    .String("string1", "test1"),
+                Dictator.New()
+                    .String("string1", "test2"),
+                Dictator.New()
+                    .String("string1", "test3")
+            };
+            
+            var list2 = new List<int>() { 1, 2, 3 };
+            
+            var doc1 = Dictator.New()
+                .List("list1", list1)
+                .List("list2", list2);
+            
+            Assert.AreEqual(3, doc1.Size("list1"));
+            Assert.AreEqual("test1", doc1.String("list1[0].string1"));
+            Assert.AreEqual("test2", doc1.String("list1[1].string1"));
+            Assert.AreEqual("test3", doc1.String("list1[2].string1"));
+            
+            Assert.AreEqual(3, doc1.Size("list2"));
+            Assert.AreEqual(1, doc1.Int("list2[0]"));
+            Assert.AreEqual(2, doc1.Int("list2[1]"));
+            Assert.AreEqual(3, doc1.Int("list2[2]"));
+        }
+        
+        [Test()]
+        public void Should_set_list_items_at_specified_positions()
+        {
+            var list1 = new List<Dictionary<string, object>>() 
+            {
+                Dictator.New()
+                    .String("string1", "test1"),
+                Dictator.New()
+                    .String("string1", "test2"),
+                Dictator.New()
+                    .String("string1", "test3")
+            };
+            
+            var list2 = new List<int>() { 1, 2, 3 };
+            
+            var doc1 = Dictator.New()
+                .List("list1", list1)
+                .List("list2", list2);
+            
+            // insert at specified index
+            doc1.String("list1[1].string1", "new test2");
+            
+            Assert.AreEqual(3, doc1.Size("list1"));
+            Assert.AreEqual("test1", doc1.String("list1[0].string1"));
+            Assert.AreEqual("new test2", doc1.String("list1[1].string1"));
+            Assert.AreEqual("test3", doc1.String("list1[2].string1"));
+            
+            doc1.Int("list2[1]", 222);
+            
+            Assert.AreEqual(3, doc1.Size("list2"));
+            Assert.AreEqual(1, doc1.Int("list2[0]"));
+            Assert.AreEqual(222, doc1.Int("list2[1]"));
+            Assert.AreEqual(3, doc1.Int("list2[2]"));
+            
+            // append new value
+            doc1.Document("list1[*]", Dictator.New().String("string1", "test4"));
+            
+            Assert.AreEqual(4, doc1.Size("list1"));
+            Assert.AreEqual("test1", doc1.String("list1[0].string1"));
+            Assert.AreEqual("new test2", doc1.String("list1[1].string1"));
+            Assert.AreEqual("test3", doc1.String("list1[2].string1"));
+            Assert.AreEqual("test4", doc1.String("list1[3].string1"));
+            
+            doc1.Int("list2[*]", 4);
+            
+            Assert.AreEqual(4, doc1.Size("list2"));
+            Assert.AreEqual(1, doc1.Int("list2[0]"));
+            Assert.AreEqual(222, doc1.Int("list2[1]"));
+            Assert.AreEqual(3, doc1.Int("list2[2]"));
+            Assert.AreEqual(4, doc1.Int("list2[3]"));
+        }
+        
+        #endregion
+        
+        #region Array
+        
+        [Test()]
+        public void Should_set_and_get_array_with_primitive_values()
+        {
+            var array1 = new [] { 1, 2, 3 };
+            
+            var doc1 = Dictator.New()
+                .Array("array1", array1);
+            
+            for (int i = 0; i < array1.Length; i++)
+            {
+                Assert.IsTrue(doc1.Array<int>("array1")[i] == array1[i]);
+            }
+        }
+        
+        [Test()]
+        public void Should_set_and_get_array_size()
+        {
+            var array1 = new [] { 1, 2, 3 };
+            
+            var doc1 = Dictator.New()
+                .Array("array1", array1);
+            
+            Assert.AreEqual(doc1.Size("array1"), 3);
+        }
+        
+        [Test()]
+        public void Should_set_array_and_get_item_at_specified_index()
+        {
+            var array1 = new []
+            {
+                Dictator.New()
+                    .String("string1", "test1"),
+                Dictator.New()
+                    .String("string1", "test2"),
+                Dictator.New()
+                    .String("string1", "test3")
+            };
+            
+            var array2 = new [] { 1, 2, 3 };
+            
+            var doc1 = Dictator.New()
+                .Array("array1", array1)
+                .Array("array2", array2);
+            
+            Assert.AreEqual(3, doc1.Size("array1"));
+            Assert.AreEqual("test1", doc1.String("array1[0].string1"));
+            Assert.AreEqual("test2", doc1.String("array1[1].string1"));
+            Assert.AreEqual("test3", doc1.String("array1[2].string1"));
+            
+            Assert.AreEqual(3, doc1.Size("array2"));
+            Assert.AreEqual(1, doc1.Int("array2[0]"));
+            Assert.AreEqual(2, doc1.Int("array2[1]"));
+            Assert.AreEqual(3, doc1.Int("array2[2]"));
+        }
+        
+        [Test()]
+        public void Should_set_array_items_at_specified_positions()
+        {
+            var array1 = new []
+            {
+                Dictator.New()
+                    .String("string1", "test1"),
+                Dictator.New()
+                    .String("string1", "test2"),
+                Dictator.New()
+                    .String("string1", "test3")
+            };
+            
+            var array2 = new [] { 1, 2, 3 };
+            
+            var doc1 = Dictator.New()
+                .Array("array1", array1)
+                .Array("array2", array2);
+            
+            // insert at specified index
+            doc1.String("array1[1].string1", "new test2");
+            
+            Assert.AreEqual(3, doc1.Size("array1"));
+            Assert.AreEqual("test1", doc1.String("array1[0].string1"));
+            Assert.AreEqual("new test2", doc1.String("array1[1].string1"));
+            Assert.AreEqual("test3", doc1.String("array1[2].string1"));
+            
+            doc1.Int("array2[1]", 222);
+            
+            Assert.AreEqual(3, doc1.Size("array2"));
+            Assert.AreEqual(1, doc1.Int("array2[0]"));
+            Assert.AreEqual(222, doc1.Int("array2[1]"));
+            Assert.AreEqual(3, doc1.Int("array2[2]"));
+        }
+        
         #endregion
         
         [Test()]

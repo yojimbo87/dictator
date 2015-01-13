@@ -114,10 +114,18 @@ namespace Dictator.ConsoleTests
             
             var list1 = document.List<int>("list1");
             var list1Size = document.Size("list1");
+            var item2 = document.Int("list1[1]");
             
-            list1.ForEach(x => Console.WriteLine(x));
+            // change value of item at specified index
+            document.Int("list1[1]", 222);
             
-            Console.WriteLine(list1Size);
+            // append new value to the list
+            document.Int("list1[*]", 4);
+            
+            document.List<int>("list1").ForEach(x => Console.WriteLine(x));
+            
+            Console.WriteLine("Size: " + document.Size("list1"));
+            Console.WriteLine("Item 2: " + document.Int("list1[1]"));
         }
         
         public static void ArraySetGetOperations()
@@ -127,13 +135,18 @@ namespace Dictator.ConsoleTests
             
             var array1 = document.Array<int>("array1");
             var array1Size = document.Size("array1");
+            var item2 = document.Int("array1[1]");
             
-            for (int i = 0; i < array1Size; i++)
+            // change value of item at specified index
+            document.Int("array1[1]", 222);
+            
+            for (int i = 0; i < document.Size("array1"); i++)
             {
-                Console.WriteLine(array1[i]);
+                Console.WriteLine(document.Array<int>("array1")[i]);
             }
             
-            Console.WriteLine(array1Size);
+            Console.WriteLine("Size: " + document.Size("array1"));
+            Console.WriteLine("Item 2: " + document.Int("array1[1]"));
         }
         
         public static void NestedSetGetOperations()
