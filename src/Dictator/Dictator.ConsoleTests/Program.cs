@@ -16,7 +16,7 @@ namespace Dictator.ConsoleTests
             //Examples.DateTimeSetGetOperations();
             //Examples.EnumSetGetOperations();
             //Examples.ListSetGetOperations();
-            Examples.ArraySetGetOperations();
+            //Examples.ArraySetGetOperations();
             //Examples.NestedSetGetOperations();
             
             //Examples.FieldExistenceCheckOperations();
@@ -27,6 +27,7 @@ namespace Dictator.ConsoleTests
             //Examples.GenericTypeCheckOperations();
             //Examples.FieldValueEqualityCheckOperations();
             
+            //Examples.ListAndArrayIteration();
             //Examples.DeletingFields();
             //Examples.CloningDocuments();
             //Examples.MergingDocuments();

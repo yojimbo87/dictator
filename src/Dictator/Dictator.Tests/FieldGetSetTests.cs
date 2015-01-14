@@ -493,6 +493,128 @@ namespace Dictator.Tests
         
         #endregion
         
+        #region Field items iteration
+        
+        [Test()]
+        public void Should_iterate_over_primitive_list_items()
+        {
+            var list1 = new List<int>() { 1, 2, 3 };
+            
+            var doc1 = Dictator.New()
+                .List("list1", list1);
+            
+            var index = 0;
+            
+            doc1.Each<int>("list1", (i, item) => {
+                Assert.AreEqual(index, i);
+                Assert.AreEqual(list1[i], item);
+               
+                index++;
+            });
+        }
+        
+        [Test()]
+        public void Should_iterate_over_document_list_items()
+        {
+            var list1 = new List<Dictionary<string, object>>() 
+            {
+                Dictator.New()
+                    .String("string1", "test1"),
+                Dictator.New()
+                    .String("string1", "test2"),
+                Dictator.New()
+                    .String("string1", "test3")
+            };
+            
+            var doc1 = Dictator.New()
+                .List("list1", list1);
+            
+            var index = 0;
+            
+            doc1.Each("list1", (i, item) => {
+                Assert.AreEqual(index, i);
+                Assert.AreEqual(list1[i].String("string1"), item.String("string1"));
+               
+                index++;
+            });
+        }
+        
+        [Test()]
+        public void Should_iterate_over_primitive_array_items()
+        {
+            var array1 = new [] { 1, 2, 3 };
+            
+            var doc1 = Dictator.New()
+                .Array("array1", array1);
+            
+            var index = 0;
+            
+            doc1.Each<int>("array1", (i, item) => {
+                Assert.AreEqual(index, i);
+                Assert.AreEqual(array1[i], item);
+               
+                index++;
+            });
+        }
+        
+        [Test()]
+        public void Should_iterate_over_document_array_items()
+        {
+            var array1 = new []
+            {
+                Dictator.New()
+                    .String("string1", "test1"),
+                Dictator.New()
+                    .String("string1", "test2"),
+                Dictator.New()
+                    .String("string1", "test3")
+            };
+            
+            var doc1 = Dictator.New()
+                .Array("array1", array1);
+            
+            var index = 0;
+            
+            doc1.Each("array1", (i, item) => {
+                Assert.AreEqual(index, i);
+                Assert.AreEqual(array1[i].String("string1"), item.String("string1"));
+               
+                index++;
+            });
+        }
+        
+        [Test()]
+        public void Should_modify_values_during_iteration()
+        {
+            var list1 = new List<Dictionary<string, object>>() 
+            {
+                Dictator.New()
+                    .String("string1", "test1"),
+                Dictator.New()
+                    .String("string1", "test2"),
+                Dictator.New()
+                    .String("string1", "test3")
+            };
+            
+            var doc1 = Dictator.New()
+                .List("list1", list1);
+            
+            doc1.Each("list1", (i, item) => {
+                item.String("string1", "new test " + i);
+            });
+            
+            var index = 0;
+            
+            doc1.Each("list1", (i, item) => {
+                Assert.AreEqual(index, i);
+                Assert.AreEqual(list1[i].String("string1"), item.String("string1"));
+               
+                index++;
+            });
+        }
+        
+        #endregion
+        
         [Test()]
         public void Should_set_and_get_nested_fields()
         {

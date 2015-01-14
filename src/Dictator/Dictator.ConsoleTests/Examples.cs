@@ -326,6 +326,31 @@ namespace Dictator.ConsoleTests
         
         #endregion
         
+        public static void ListAndArrayIteration()
+        {
+            var document = new Dictionary<string, object>()
+                .Array("array", new [] { 1, 2, 3 })
+                .List("list", new List<string> { "one", "two", "three" });
+            
+            document.Each<int>("array", (index, item) => {
+                var itemIndex = index;
+                var itemValue = item;
+            });
+            
+            document.Each<string>("list", (index, item) => {
+                var itemIndex = index;
+                var itemValue = item;
+            });
+            
+            document.Each<int>("array", (index, item) => {
+                Console.WriteLine("{0}: {1}", index, item);
+            });
+            
+            document.Each<string>("list", (index, item) => {
+                Console.WriteLine("{0}: {1}", index, item);
+            });
+        }
+        
         public static void DeletingFields()
         {
             var document = new Dictionary<string, object>()

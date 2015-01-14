@@ -1017,6 +1017,45 @@ namespace Dictator
         #endregion
 
         /// <summary>
+        /// Iterates over documents from specified field path and performs given action.
+        /// </summary>
+        public static Dictionary<string, object> Each(this Dictionary<string, object> dictionary, string fieldPath, Action<int, Dictionary<string, object>> action)
+        {
+            var fieldValue = GetFieldValue(dictionary, fieldPath);
+            
+            if (fieldValue is IList)
+            {
+                for (int i = 0; i < ((IList)fieldValue).Count; i++)
+                {
+                    if (((IList)fieldValue)[i] is Dictionary<string, object>)
+                    {
+                        action(i, (Dictionary<string, object>)((IList)fieldValue)[i]);
+                    }
+                } 
+            }
+            
+            return dictionary;
+        }
+        
+        /// <summary>
+        /// Iterates over items from specified field path and performs given action.
+        /// </summary>
+        public static Dictionary<string, object> Each<T>(this Dictionary<string, object> dictionary, string fieldPath, Action<int, T> action)
+        {
+            var fieldValue = GetFieldValue(dictionary, fieldPath);
+            
+            if (fieldValue is IList)
+            {
+                for (int i = 0; i < ((IList)fieldValue).Count; i++)
+                {
+                    action(i, (T)((IList)fieldValue)[i]);
+                } 
+            }
+            
+            return dictionary;
+        }
+        
+        /// <summary>
         /// Creates a deep clone of current dictionary.
         /// </summary>
         public static Dictionary<string, object> Clone(this Dictionary<string, object> dictionary)

@@ -45,6 +45,7 @@ if (document.IsString("foo") && document.IsInt("bar") && document.IsString("embe
     - [Enum type check](#enum-type-check)
     - [Generic type check](#generic-type-check)
     - [Field value equality check](#field-value-equality-check)
+  - [List and array iteration](#list-and-array-iteration)
   - [Deleting fields](#deleting-fields)
   - [Cloning documents](#cloning-documents)
   - [Merging documents](#merging-documents)
@@ -306,6 +307,24 @@ var isEqual1 = document.IsEqual("foo", "foo string value");
 var isEqual2 = document.IsEqual("bar", 12345);
 // false
 var isEqual3 = document.IsEqual("nonExistingField", "some string value");
+```
+
+### List and array iteration
+
+```csharp
+var document = new Dictionary<string, object>()
+    .Array("array", new [] { 1, 2, 3 })
+    .List("list", new List<string> { "one", "two", "three" });
+
+document.Each<int>("array", (index, item) => {
+    var itemIndex = index;
+    var itemValue = item;
+});
+
+document.Each<string>("list", (index, item) => {
+    var itemIndex = index;
+    var itemValue = item;
+});
 ```
 
 ### Deleting fields
