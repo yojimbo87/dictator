@@ -994,16 +994,16 @@ namespace Dictator
             {
                 var fieldValue = GetFieldValue(dictionary, fieldPath);
                 
-                if (fieldValue != null)
+                if ((fieldValue == null) && (compareValue == null))
+                {
+                    isValid = true;
+                }
+                else if ((fieldValue != null) && (compareValue != null))
                 {
                     if ((fieldValue.GetType() == compareValue.GetType()) && fieldValue.Equals(compareValue))
                     {
                         isValid = true;
                     }
-                }
-                else if (fieldValue == null && compareValue == null)
-                {
-                    isValid = true;
                 }
             }
             catch (Exception)
