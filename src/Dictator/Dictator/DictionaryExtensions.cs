@@ -996,7 +996,7 @@ namespace Dictator
                 
                 if (fieldValue != null)
                 {
-                    if (fieldValue.Equals(compareValue))
+                    if ((fieldValue.GetType() == compareValue.GetType()) && fieldValue.Equals(compareValue))
                     {
                         isValid = true;
                     }
