@@ -306,6 +306,40 @@ namespace Dictator.ConsoleTests
             Console.WriteLine(isBool);
         }
         
+        public static void IntegerValueCheckOperations()
+        {
+            var document = new Dictionary<string, object>()
+                .Byte("byte1", 1)
+                .Short("short1", 2)
+                .Int("int1", 3)
+                .Long("long1", 4)
+                .Object("null1", null)
+                .String("string1", "string value");
+            
+            // true
+            var isInteger1 = document.IsInteger("byte1");
+            // true
+            var isInteger2 = document.IsInteger("short1");
+            // true
+            var isInteger3 = document.IsInteger("int1");
+            // true
+            var isInteger4 = document.IsInteger("long1");
+            // false
+            var isInteger5 = document.IsInteger("null1");
+            // false
+            var isInteger6 = document.IsInteger("string1");
+            // false
+            var isInteger7 = document.IsInteger("nonExistingField");
+            
+            Console.WriteLine(isInteger1);
+            Console.WriteLine(isInteger2);
+            Console.WriteLine(isInteger3);
+            Console.WriteLine(isInteger4);
+            Console.WriteLine(isInteger5);
+            Console.WriteLine(isInteger6);
+            Console.WriteLine(isInteger7);
+        }
+        
         public static void FieldValueEqualityCheckOperations()
         {
             var document = new Dictionary<string, object>()

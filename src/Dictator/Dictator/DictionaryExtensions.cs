@@ -951,13 +951,6 @@ namespace Dictator
         /// <summary>
         /// Checks if specified field has given type value.
         /// </summary>
-        public static bool IsType<T>(this Dictionary<string, object> dictionary, string fieldPath)
-        {
-            return IsType(dictionary, fieldPath, typeof(T));
-        }
-        /// <summary>
-        /// Checks if specified field has given type value.
-        /// </summary>
         public static bool IsType(this Dictionary<string, object> dictionary, string fieldPath, Type type)
         {
             var isValid = false;
@@ -971,6 +964,46 @@ namespace Dictator
                     var fieldType = fieldValue.GetType();
                     
                     if (fieldType == type)
+                    {
+                        isValid = true;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        /// <summary>
+        /// Checks if specified field has given type value.
+        /// </summary>
+        public static bool IsType<T>(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            return IsType(dictionary, fieldPath, typeof(T));
+        }
+        /// <summary>
+        /// Checks if specified field has integer value. Applicable integer types are byte, sbyte, short, ushort, int, uint, long and ulong.
+        /// </summary>
+        public static bool IsInteger(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+                
+                if (fieldValue != null)
+                {
+                    if ((fieldValue is byte) ||
+                        (fieldValue is sbyte) ||
+                        (fieldValue is short) ||
+                        (fieldValue is ushort) ||
+                        (fieldValue is int) ||
+                        (fieldValue is uint) ||
+                        (fieldValue is long) ||
+                        (fieldValue is ulong))
                     {
                         isValid = true;
                     }

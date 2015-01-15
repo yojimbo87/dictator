@@ -359,5 +359,26 @@ namespace Dictator.Tests
             Assert.IsFalse(doc1.IsEqual("string1", null));
             Assert.IsFalse(doc1.IsEqual("nonExistingField", "test1".GetType()));
         }
+        
+        [Test()]
+        public void Should_check_field_integer_value()
+        {
+            var doc1 = Dictator.New()
+                .Byte("byte1", 1)
+                .Short("short1", 2)
+                .Int("int1", 3)
+                .Long("long1", 4)
+                .Object("null1", null)
+                .String("string1", "string value");
+            
+            Assert.IsTrue(doc1.IsInteger("byte1"));
+            Assert.IsTrue(doc1.IsInteger("short1"));
+            Assert.IsTrue(doc1.IsInteger("int1"));
+            Assert.IsTrue(doc1.IsInteger("long1"));
+
+            Assert.IsFalse(doc1.IsInteger("null1"));
+            Assert.IsFalse(doc1.IsInteger("string1"));
+            Assert.IsFalse(doc1.IsInteger("nonExistingField"));
+        }
     }
 }
