@@ -615,6 +615,46 @@ namespace Dictator.Tests
         
         #endregion
         
+        #region Set long and get int
+        
+        [Test()]
+        public void Should_set_long_and_get_int_fields()
+        {
+            var doc1 = new Dictionary<string, object>()
+                .Long("long1", 123L)
+                .List("longList", new List<long> { 1, 2, 3 })
+                .Array("longArray", new long[] { 4, 5, 6 })
+                .List("stringList", new List<string> { "7", "8", "9" });
+            
+            Assert.AreEqual(123, doc1.Int("long1"));
+            
+            Assert.AreEqual(1, doc1.Int("longList[0]"));
+            Assert.AreEqual(2, doc1.Int("longList[1]"));
+            Assert.AreEqual(3, doc1.Int("longList[2]"));
+            
+            Assert.AreEqual(1, doc1.List<int>("longList")[0]);
+            Assert.AreEqual(2, doc1.List<int>("longList")[1]);
+            Assert.AreEqual(3, doc1.List<int>("longList")[2]);
+            
+            Assert.AreEqual(4, doc1.Int("longArray[0]"));
+            Assert.AreEqual(5, doc1.Int("longArray[1]"));
+            Assert.AreEqual(6, doc1.Int("longArray[2]"));
+            
+            Assert.AreEqual(4, doc1.Array<int>("longArray")[0]);
+            Assert.AreEqual(5, doc1.Array<int>("longArray")[1]);
+            Assert.AreEqual(6, doc1.Array<int>("longArray")[2]);
+            
+            Assert.AreEqual(7, doc1.Int("stringList[0]"));
+            Assert.AreEqual(8, doc1.Int("stringList[1]"));
+            Assert.AreEqual(9, doc1.Int("stringList[2]"));
+            
+            Assert.AreEqual(7, doc1.List<int>("stringList")[0]);
+            Assert.AreEqual(8, doc1.List<int>("stringList")[1]);
+            Assert.AreEqual(9, doc1.List<int>("stringList")[2]);
+        }
+        
+        #endregion
+        
         [Test()]
         public void Should_set_and_get_nested_fields()
         {
