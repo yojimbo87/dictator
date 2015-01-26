@@ -31,19 +31,29 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AliasField.cs" />
-    <Compile Include="DateTimeFormat.cs" />
+    <Compile Include="Attributes\AliasField.cs" />
+    <Compile Include="Attributes\IgnoreField.cs" />
+    <Compile Include="Attributes\IgnoreNullValue.cs" />
     <Compile Include="Dictator.cs" />
     <Compile Include="DictatorSettings.cs" />
     <Compile Include="DictionaryExtensions.cs" />
-    <Compile Include="EnumFormat.cs" />
-    <Compile Include="IgnoreField.cs" />
-    <Compile Include="IgnoreNullValue.cs" />
-    <Compile Include="InvalidFieldException.cs" />
-    <Compile Include="InvalidFieldTypeException.cs" />
-    <Compile Include="MergeBehavior.cs" />
-    <Compile Include="NonExistingFieldException.cs" />
+    <Compile Include="Enums\Constraint.cs" />
+    <Compile Include="Enums\DateTimeFormat.cs" />
+    <Compile Include="Enums\EnumFormat.cs" />
+    <Compile Include="Enums\MergeBehavior.cs" />
+    <Compile Include="Exceptions\InvalidFieldException.cs" />
+    <Compile Include="Exceptions\InvalidFieldTypeException.cs" />
+    <Compile Include="Exceptions\NonExistingFieldException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Schema\Rule.cs" />
+    <Compile Include="Schema\Schema.cs" />
+    <Compile Include="Schema\ValidationResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Exceptions" />
+    <Folder Include="Attributes" />
+    <Folder Include="Enums" />
+    <Folder Include="Schema" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
