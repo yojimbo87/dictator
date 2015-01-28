@@ -62,6 +62,7 @@
     <Compile Include="FieldCheckTests.cs" />
     <Compile Include="FieldExceptionTests.cs" />
     <Compile Include="FieldGetSetTests.cs" />
+    <Compile Include="SchemaValidationTests.cs" />
     <Compile Include="SerializationTests.cs" />
   </ItemGroup>
   <ItemGroup>

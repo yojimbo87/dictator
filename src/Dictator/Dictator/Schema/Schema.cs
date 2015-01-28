@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Dictator
 {
@@ -237,7 +238,7 @@ namespace Dictator
         
         #endregion
         
-        public ValidationResult Analyze(Dictionary<string, object> document)
+        public ValidationResult Validate(Dictionary<string, object> document)
         {
             var validationResult = new ValidationResult();
             var fieldRules = _rules.Where(rule => rule.Constraint == Constraint.MustHave || rule.Constraint == Constraint.ShouldHave).ToList();
@@ -251,7 +252,7 @@ namespace Dictator
                         {
                             var fieldValueRules = _rules.Where(rule => rule.FieldPath == fieldRule.FieldPath && rule.Constraint != Constraint.MustHave).ToList();
                             
-                            validationResult.AddViolations(ValidateFieldValueRules(fieldValueRules));
+                            validationResult.AddViolations(ValidateFieldValueRules(fieldValueRules, document));
                         }
                         else
                         {
@@ -263,7 +264,7 @@ namespace Dictator
                         {
                             var fieldValueRules = _rules.Where(rule => rule.FieldPath == fieldRule.FieldPath && rule.Constraint != Constraint.ShouldHave).ToList();
                             
-                            validationResult.AddViolations(ValidateFieldValueRules(fieldValueRules));
+                            validationResult.AddViolations(ValidateFieldValueRules(fieldValueRules, document));
                         }
                         break;
                     default:
@@ -274,7 +275,7 @@ namespace Dictator
             return validationResult;
         }
         
-        List<Rule> ValidateFieldValueRules(List<Rule> fieldValueRules)
+        List<Rule> ValidateFieldValueRules(List<Rule> fieldValueRules, Dictionary<string, object> document)
         {
             var ruleViolations = new List<Rule>();
             
@@ -283,10 +284,46 @@ namespace Dictator
                 switch (fieldValueRule.Constraint)
                 {
                     case Constraint.NotNull:
-                        // TODO:
+                        if (!ValidateNotNullConstraint(fieldValueRule, document))
+                        {
+                            ruleViolations.Add(fieldValueRule);
+                        }
                         break;
                     case Constraint.Type:
-                        
+                        if (!ValidateTypeConstraint(fieldValueRule, document))
+                        {
+                            ruleViolations.Add(fieldValueRule);
+                        }
+                        break;
+                    case Constraint.Min:
+                        if (!ValidateMinConstraint(fieldValueRule, document))
+                        {
+                            ruleViolations.Add(fieldValueRule);
+                        }
+                        break;
+                    case Constraint.Max:
+                        if (!ValidateMaxConstraint(fieldValueRule, document))
+                        {
+                            ruleViolations.Add(fieldValueRule);
+                        }
+                        break;
+                    case Constraint.Range:
+                        if (!ValidateRangeConstraint(fieldValueRule, document))
+                        {
+                            ruleViolations.Add(fieldValueRule);
+                        }
+                        break;
+                    case Constraint.Size:
+                        if (!ValidateSizeConstraint(fieldValueRule, document))
+                        {
+                            ruleViolations.Add(fieldValueRule);
+                        }
+                        break;
+                    case Constraint.Match:
+                        if (!ValidateMatchConstraint(fieldValueRule, document))
+                        {
+                            ruleViolations.Add(fieldValueRule);
+                        }
                         break;
                     default:
                         break;
@@ -294,6 +331,172 @@ namespace Dictator
             }
             
             return ruleViolations;
+        }
+        
+        bool ValidateNotNullConstraint(Rule fieldValueRule, Dictionary<string, object> document)
+        {
+            if (document.IsNotNull(fieldValueRule.FieldPath))
+            {
+                return true;
+            }
+            
+            return false;
+        }
+        
+        bool ValidateTypeConstraint(Rule fieldValueRule, Dictionary<string, object> document)
+        {
+            if (document.IsType(fieldValueRule.FieldPath, (Type)fieldValueRule.Parameters[0]))
+            {
+                return true;
+            }
+            
+            return false;
+        }
+        
+        bool ValidateMinConstraint(Rule fieldValueRule, Dictionary<string, object> document)
+        {
+            var minValue = (int)fieldValueRule.Parameters[0];
+            var fieldValue = document.Object(fieldValueRule.FieldPath);
+            
+            if (fieldValue is string)
+            {
+                if (((string)fieldValue).Length >= minValue)
+                {
+                    return true;
+                }
+            }
+            else if ((fieldValue is byte) ||
+                    (fieldValue is sbyte) ||
+                    (fieldValue is short) ||
+                    (fieldValue is ushort) ||
+                    (fieldValue is int) ||
+                    (fieldValue is uint) ||
+                    (fieldValue is long) ||
+                    (fieldValue is ulong))
+            {
+                if ((long)fieldValue >= minValue)
+                {
+                    return true;
+                }
+            }
+            else if (document.IsList(fieldValueRule.FieldPath) || document.IsArray(fieldValueRule.FieldPath))
+            {
+                if (document.Size(fieldValueRule.FieldPath) >= minValue)
+                {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+        
+        bool ValidateMaxConstraint(Rule fieldValueRule, Dictionary<string, object> document)
+        {
+            var maxValue = (int)fieldValueRule.Parameters[0];
+            var fieldValue = document.Object(fieldValueRule.FieldPath);
+            
+            if (fieldValue is string)
+            {
+                if (((string)fieldValue).Length <= maxValue)
+                {
+                    return true;
+                }
+            }
+            else if ((fieldValue is byte) ||
+                    (fieldValue is sbyte) ||
+                    (fieldValue is short) ||
+                    (fieldValue is ushort) ||
+                    (fieldValue is int) ||
+                    (fieldValue is uint) ||
+                    (fieldValue is long) ||
+                    (fieldValue is ulong))
+            {
+                if ((long)fieldValue <= maxValue)
+                {
+                    return true;
+                }
+            }
+            else if (document.IsList(fieldValueRule.FieldPath) || document.IsArray(fieldValueRule.FieldPath))
+            {
+                if (document.Size(fieldValueRule.FieldPath) <= maxValue)
+                {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+        
+        bool ValidateRangeConstraint(Rule fieldValueRule, Dictionary<string, object> document)
+        {
+            var minValue = (int)fieldValueRule.Parameters[0];
+            var maxValue = (int)fieldValueRule.Parameters[1];
+            var fieldValue = document.Object(fieldValueRule.FieldPath);
+            
+            if (fieldValue is string)
+            {
+                if ((((string)fieldValue).Length >= minValue) &&
+                    (((string)fieldValue).Length <= maxValue))
+                {
+                    return true;
+                }
+            }
+            else if ((fieldValue is byte) ||
+                    (fieldValue is sbyte) ||
+                    (fieldValue is short) ||
+                    (fieldValue is ushort) ||
+                    (fieldValue is int) ||
+                    (fieldValue is uint) ||
+                    (fieldValue is long) ||
+                    (fieldValue is ulong))
+            {
+                if (((long)fieldValue >= minValue) &&
+                    ((long)fieldValue <= maxValue))
+                {
+                    return true;
+                }
+            }
+            else if (document.IsList(fieldValueRule.FieldPath) || document.IsArray(fieldValueRule.FieldPath))
+            {
+                var size = document.Size(fieldValueRule.FieldPath);
+                
+                if ((size >= minValue) &&
+                    (size <= maxValue))
+                {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+        
+        bool ValidateSizeConstraint(Rule fieldValueRule, Dictionary<string, object> document)
+        {
+            var sizeValue = (int)fieldValueRule.Parameters[0];
+            
+            if ((document.IsList(fieldValueRule.FieldPath) || document.IsArray(fieldValueRule.FieldPath)) &&
+                (document.Size(fieldValueRule.FieldPath) == sizeValue))
+            {
+                return true;
+            }
+            
+            return false;
+        }
+        
+        bool ValidateMatchConstraint(Rule fieldValueRule, Dictionary<string, object> document)
+        {
+            var patternValue = (string)fieldValueRule.Parameters[0];
+            var fieldValue = document.Object(fieldValueRule.FieldPath);
+            
+            if (fieldValue is string)
+            {
+                if (Regex.IsMatch((string)fieldValue, patternValue))
+                {
+                    return true;
+                }
+            }
+            
+            return false;
         }
     }
 }
