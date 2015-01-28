@@ -321,6 +321,21 @@ namespace Dictator.Tests
         }
         
         [Test()]
+        public void Should_check_field_array_value()
+        {
+            var doc1 = Dictator.New()
+                .Object("null1", null)
+                .Array("array1", new [] { 1, 2, 3 })
+                .String("foo", "test2");
+            
+            Assert.IsFalse(doc1.IsArray("null1"));
+            Assert.IsTrue(doc1.IsArray("array1"));
+
+            Assert.IsFalse(doc1.IsArray("nonExistingField"));
+            Assert.IsFalse(doc1.IsArray("foo.nonExistingField"));
+        }
+        
+        [Test()]
         public void Should_check_field_type_equality()
         {
             var doc1 = Dictator.New()

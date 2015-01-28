@@ -43,6 +43,7 @@ if (document.IsString("foo") && document.IsInt("bar") && document.IsString("embe
     - [Null check](#null-check)
     - [DateTime type check](#datetime-type-check)
     - [Enum type check](#enum-type-check)
+    - [List and array type check](#list-and-array-type-check)
     - [Generic type check](#generic-type-check)
     - [Integer value check](#integer-value-check)
     - [Field value equality check](#field-value-equality-check)
@@ -276,6 +277,19 @@ var isEnum3 = document.IsEnum<DateTimeFormat>("enum3");
 var isEnum4 = document.IsEnum("enum2");
 // false
 var isEnum5 = document.IsEnum("enum3");
+```
+
+#### List and array type check
+
+```csharp
+var document = new Dictionary<string, object>()
+    .List("list1", new List<int> { 1, 2, 3})
+    .Array("array1", new [] { 4, 5, 6 });
+
+// true
+var isList = document.IsList("list1");
+// true
+var isArray = document.IsArray("array1");
 ```
 
 #### Generic type check

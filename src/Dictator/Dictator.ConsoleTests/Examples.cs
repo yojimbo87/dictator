@@ -288,6 +288,21 @@ namespace Dictator.ConsoleTests
             Console.WriteLine(isEnum5);
         }
         
+        public static void ListAndArrayTypeCheckOperations()
+        {
+            var document = new Dictionary<string, object>()
+                .List("list1", new List<int> { 1, 2, 3})
+                .Array("array1", new [] { 4, 5, 6 });
+            
+            // true
+            var isList = document.IsList("list1");
+            // true
+            var isArray = document.IsArray("array1");
+            
+            Console.WriteLine(isList);
+            Console.WriteLine(isArray);
+        }
+        
         public static void GenericTypeCheckOperations()
         {
             var document = new Dictionary<string, object>()

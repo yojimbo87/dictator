@@ -24,8 +24,9 @@ namespace Dictator.ConsoleTests
             //Examples.NullTypeCheckOperations();
             //Examples.DateTimeTypeCheckOperations();
             //Examples.EnumTypeCheckOperations();
+            Examples.ListAndArrayTypeCheckOperations();
             //Examples.GenericTypeCheckOperations();
-            Examples.IntegerValueCheckOperations();
+            //Examples.IntegerValueCheckOperations();
             //Examples.FieldValueEqualityCheckOperations();
             
             //Examples.ListAndArrayIteration();

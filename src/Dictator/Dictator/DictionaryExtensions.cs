@@ -987,6 +987,29 @@ namespace Dictator
             return isValid;
         }
         /// <summary>
+        /// Checks if specified field has array type value.
+        /// </summary>
+        public static bool IsArray(this Dictionary<string, object> dictionary, string fieldPath)
+        {
+            var isValid = false;
+            
+            try
+            {
+                var fieldValue = GetFieldValue(dictionary, fieldPath);
+            
+                if (fieldValue.GetType().IsArray)
+                {
+                    isValid = true;
+                }
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        /// <summary>
         /// Checks if specified field has given type value.
         /// </summary>
         public static bool IsType(this Dictionary<string, object> dictionary, string fieldPath, Type type)
