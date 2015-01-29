@@ -245,6 +245,8 @@ namespace Dictator
         
         #endregion
         
+        #region Validation
+        
         public ValidationResult Validate(Dictionary<string, object> document)
         {
             var validationResult = new ValidationResult();
@@ -525,5 +527,7 @@ namespace Dictator
             
             return false;
         }
+        
+        #endregion
     }
 }
