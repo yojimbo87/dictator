@@ -202,6 +202,11 @@ namespace Dictator
         
         public Schema Match(string regex)
         {
+            return Match(regex, false);
+        }
+        
+        public Schema Match(string regex, bool ignoreCase)
+        {
             _lastAddedConstraint = Constraint.Match;
             
             var rule = _rules.FirstOrDefault(r => r.FieldPath == _lastAddedFieldPath && r.Constraint == _lastAddedConstraint);
@@ -212,6 +217,7 @@ namespace Dictator
                 rule.FieldPath = _lastAddedFieldPath;
                 rule.Constraint = _lastAddedConstraint;
                 rule.Parameters.Add(regex);
+                rule.Parameters.Add(ignoreCase);
                 
                 _rules.Add(rule);
             }
@@ -219,6 +225,7 @@ namespace Dictator
             {
                 rule.Parameters.Clear();
                 rule.Parameters.Add(regex);
+                rule.Parameters.Add(ignoreCase);
             }
             
             return this;
@@ -374,7 +381,7 @@ namespace Dictator
                     (fieldValue is long) ||
                     (fieldValue is ulong))
             {
-                if ((long)fieldValue >= minValue)
+                if (Convert.ToInt64(fieldValue) >= minValue)
                 {
                     return true;
                 }
@@ -411,7 +418,7 @@ namespace Dictator
                     (fieldValue is long) ||
                     (fieldValue is ulong))
             {
-                if ((long)fieldValue <= maxValue)
+                if (Convert.ToInt64(fieldValue) <= maxValue)
                 {
                     return true;
                 }
@@ -450,8 +457,8 @@ namespace Dictator
                     (fieldValue is long) ||
                     (fieldValue is ulong))
             {
-                if (((long)fieldValue >= minValue) &&
-                    ((long)fieldValue <= maxValue))
+                if ((Convert.ToInt64(fieldValue) >= minValue) &&
+                    (Convert.ToInt64(fieldValue) <= maxValue))
                 {
                     return true;
                 }
@@ -474,7 +481,16 @@ namespace Dictator
         {
             var sizeValue = (int)fieldValueRule.Parameters[0];
             
-            if ((document.IsList(fieldValueRule.FieldPath) || document.IsArray(fieldValueRule.FieldPath)) &&
+            if (document.IsString(fieldValueRule.FieldPath))
+            {
+                var fieldValue = document.String(fieldValueRule.FieldPath);
+                
+                if (fieldValue.Length == sizeValue)
+                {
+                    return true;
+                }
+            }
+            else if ((document.IsList(fieldValueRule.FieldPath) || document.IsArray(fieldValueRule.FieldPath)) &&
                 (document.Size(fieldValueRule.FieldPath) == sizeValue))
             {
                 return true;
@@ -486,13 +502,24 @@ namespace Dictator
         bool ValidateMatchConstraint(Rule fieldValueRule, Dictionary<string, object> document)
         {
             var patternValue = (string)fieldValueRule.Parameters[0];
+            var ignoreCase = (bool)fieldValueRule.Parameters[1];
             var fieldValue = document.Object(fieldValueRule.FieldPath);
             
             if (fieldValue is string)
             {
-                if (Regex.IsMatch((string)fieldValue, patternValue))
+                if (ignoreCase)
                 {
-                    return true;
+                    if (Regex.IsMatch((string)fieldValue, patternValue, RegexOptions.IgnoreCase))
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    if (Regex.IsMatch((string)fieldValue, patternValue))
+                    {
+                        return true;
+                    }
                 }
             }
             

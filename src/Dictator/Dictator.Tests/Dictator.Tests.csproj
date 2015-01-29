@@ -62,7 +62,9 @@
     <Compile Include="FieldCheckTests.cs" />
     <Compile Include="FieldExceptionTests.cs" />
     <Compile Include="FieldGetSetTests.cs" />
-    <Compile Include="SchemaValidationTests.cs" />
+    <Compile Include="Schema\SchemaMustHaveValidationTests.cs" />
+    <Compile Include="Schema\SchemaShouldHaveValidationTests.cs" />
+    <Compile Include="Schema\SchemaValidationTests.cs" />
     <Compile Include="SerializationTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities" />
+    <Folder Include="Schema" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
