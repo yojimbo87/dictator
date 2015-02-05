@@ -200,25 +200,77 @@ namespace Dictator.Tests
                 .Int("baq", 12345)
                 .Int("baz.foo", 54321)
                 .Int("boo.foo", 1)
-                .Int("boo.bar", 2);
+                .Int("boo.bar", 2)
+                .List("list", new List<Dictionary<string, object>> 
+                      {
+                          new Dictionary<string, object>()
+                              .String("foo", "string value 1")
+                              .Int("bar", 1),
+                          new Dictionary<string, object>()
+                              .String("foo", "string value 2")
+                              .Int("bar", 2)
+                      }
+                     )
+                .Array("array", new []
+                       {
+                          new Dictionary<string, object>()
+                              .String("foo", "string value 1")
+                              .Int("bar", 1),
+                          new Dictionary<string, object>()
+                              .String("foo", "string value 2")
+                              .Int("bar", 2)
+                       }
+                      );
             
-            Assert.AreEqual(doc1.Count, 5);
+            Assert.AreEqual(doc1.Count, 7);
             Assert.AreEqual(doc1.Document("baz").Count, 1);
             Assert.AreEqual(doc1.Document("boo").Count, 2);
             
+            // remove root document fields
             doc1.Drop("bar", "baq", "nonExistingField");
             
-            Assert.AreEqual(doc1.Count, 3);
+            Assert.AreEqual(doc1.Count, 5);
             Assert.IsFalse(doc1.Has("bar"));
             Assert.IsFalse(doc1.Has("baq"));
             Assert.IsTrue(doc1.Has("baz"));
             Assert.IsTrue(doc1.Has("boo"));
             
+            // remove embedded document field
             doc1.Drop("boo.foo");
             
             Assert.AreEqual(doc1.Document("boo").Count, 1);
             Assert.IsFalse(doc1.Has("boo.foo"));
             Assert.IsTrue(doc1.Has("boo.bar"));
+            
+            // remove list item field
+            Assert.AreEqual(2, doc1.Size("list"));
+            Assert.IsTrue(doc1.Document("list[0]").Has("foo"));
+            Assert.IsTrue(doc1.Document("list[0]").Has("bar"));
+            Assert.IsTrue(doc1.Document("list[1]").Has("foo"));
+            Assert.IsTrue(doc1.Document("list[1]").Has("bar"));
+            
+            doc1.Drop("list[0].foo", "list[1].bar");
+            
+            Assert.AreEqual(2, doc1.Size("list"));
+            Assert.IsFalse(doc1.Document("list[0]").Has("foo"));
+            Assert.IsTrue(doc1.Document("list[0]").Has("bar"));
+            Assert.IsTrue(doc1.Document("list[1]").Has("foo"));
+            Assert.IsFalse(doc1.Document("list[1]").Has("bar"));
+            
+            // remove array item field
+            Assert.AreEqual(2, doc1.Size("array"));
+            Assert.IsTrue(doc1.Document("array[0]").Has("foo"));
+            Assert.IsTrue(doc1.Document("array[0]").Has("bar"));
+            Assert.IsTrue(doc1.Document("array[1]").Has("foo"));
+            Assert.IsTrue(doc1.Document("array[1]").Has("bar"));
+            
+            doc1.Drop("array[0].foo", "array[1].bar");
+            
+            Assert.AreEqual(2, doc1.Size("array"));
+            Assert.IsFalse(doc1.Document("array[0]").Has("foo"));
+            Assert.IsTrue(doc1.Document("array[0]").Has("bar"));
+            Assert.IsTrue(doc1.Document("array[1]").Has("foo"));
+            Assert.IsFalse(doc1.Document("array[1]").Has("bar"));
         }
     }
 }
