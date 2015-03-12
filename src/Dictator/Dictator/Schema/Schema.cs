@@ -13,6 +13,9 @@ namespace Dictator
         
         #region Field existence constraints
         
+        /// <summary>
+        /// Specifies field path which must exist in the document schema and must conform to further constraints.
+        /// </summary>
         public Schema MustHave(string fieldPath)
         {
             _lastAddedConstraint = Constraint.MustHave;
@@ -32,6 +35,9 @@ namespace Dictator
             return this;
         }
         
+        /// <summary>
+        /// Specifies field path which if exists must conform to further constraints.
+        /// </summary>
         public Schema ShouldHave(string fieldPath)
         {
             _lastAddedConstraint = Constraint.ShouldHave;
@@ -55,6 +61,9 @@ namespace Dictator
         
         #region Field value constraints
         
+        /// <summary>
+        /// Previously specified field path cannot have null value.
+        /// </summary>
         public Schema NotNull()
         {
             _lastAddedConstraint = Constraint.NotNull;
@@ -73,11 +82,17 @@ namespace Dictator
             return this;
         }
         
+        /// <summary>
+        /// Previously specified field path value must be of specified type.
+        /// </summary>
         public Schema Type<T>()
         {
             return Type(typeof(T));
         }
         
+        /// <summary>
+        /// Previously specified field path value must be of specified type.
+        /// </summary>
         public Schema Type(Type type)
         {
             _lastAddedConstraint = Constraint.Type;
@@ -102,6 +117,9 @@ namespace Dictator
             return this;
         }
         
+        /// <summary>
+        /// Previously specified field path must have specified minimal value.
+        /// </summary>
         public Schema Min(int minValue)
         {
             _lastAddedConstraint = Constraint.Min;
@@ -126,6 +144,9 @@ namespace Dictator
             return this;
         }
         
+        /// <summary>
+        /// Previously specified field path must have specified maximal value.
+        /// </summary>
         public Schema Max(int maxValue)
         {
             _lastAddedConstraint = Constraint.Max;
@@ -150,6 +171,9 @@ namespace Dictator
             return this;
         }
         
+        /// <summary>
+        /// Previously specified field path must be in specified range.
+        /// </summary>
         public Schema Range(int minValue, int maxValue)
         {
             _lastAddedConstraint = Constraint.Range;
@@ -176,6 +200,9 @@ namespace Dictator
             return this;
         }
         
+        /// <summary>
+        /// Previously specified field path must have specified number of items in collection.
+        /// </summary>
         public Schema Size(int collectionSize)
         {
             _lastAddedConstraint = Constraint.Size;
@@ -200,11 +227,17 @@ namespace Dictator
             return this;
         }
         
+        /// <summary>
+        /// Previously specified field path must match specified regular expression.
+        /// </summary>
         public Schema Match(string regex)
         {
             return Match(regex, false);
         }
         
+        /// <summary>
+        /// Previously specified field path must match specified regular expression.
+        /// </summary>
         public Schema Match(string regex, bool ignoreCase)
         {
             _lastAddedConstraint = Constraint.Match;
@@ -231,6 +264,9 @@ namespace Dictator
             return this;
         }
         
+        /// <summary>
+        /// Specifies custom error message if previous schema constraints were violated.
+        /// </summary>
         public Schema Message(string errorMessage)
         {
             var rule = _rules.FirstOrDefault(r => r.FieldPath == _lastAddedFieldPath && r.Constraint == _lastAddedConstraint);
@@ -247,6 +283,9 @@ namespace Dictator
         
         #region Validation
         
+        /// <summary>
+        /// Performs validation based on previous constraints on specified document.
+        /// </summary>
         public ValidationResult Validate(Dictionary<string, object> document)
         {
             var validationResult = new ValidationResult();
