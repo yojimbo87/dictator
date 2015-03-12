@@ -24,7 +24,7 @@ namespace Dictator.ConsoleTests
             //Examples.NullTypeCheckOperations();
             //Examples.DateTimeTypeCheckOperations();
             //Examples.EnumTypeCheckOperations();
-            Examples.ListAndArrayTypeCheckOperations();
+            //Examples.ListAndArrayTypeCheckOperations();
             //Examples.GenericTypeCheckOperations();
             //Examples.IntegerValueCheckOperations();
             //Examples.FieldValueEqualityCheckOperations();
@@ -38,6 +38,8 @@ namespace Dictator.ConsoleTests
             //Examples.ConvertDocumentListToGenericList();
             //Examples.ConvertStronglyTypedObjectToDocument();
             //Examples.ConvertGenericListToDocumentList();
+            
+            Examples.SchemaValidation();
             
             Console.WriteLine("\n\nEND");
             Console.ReadLine();

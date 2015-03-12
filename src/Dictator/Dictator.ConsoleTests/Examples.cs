@@ -534,5 +534,35 @@ namespace Dictator.ConsoleTests
         }
         
         #endregion
+        
+        #region Schema validation
+        
+        public static void SchemaValidation()
+        {
+            // setup document to be validated
+            var document = new Dictionary<string, object>()
+                .String("string1", "test1")
+                .List("list1", new List<int> { 1, 2, 3 });
+            
+            // setup schema constraints and validate document
+            var validationResult = Dictator.Schema
+                .MustHave("string1").Type<string>().Min(3).Max(4)
+                .MustHave("list1").Size(5)
+                .Validate(document);
+            
+            if (!validationResult.IsValid)
+            {
+                foreach (var violation in validationResult.Violations)
+                {
+                    var violationMessage = violation.Message;
+                    
+                    Console.WriteLine(violationMessage);
+                }
+            }
+            
+            Console.WriteLine(validationResult.IsValid);
+        }
+        
+        #endregion
     }
 }

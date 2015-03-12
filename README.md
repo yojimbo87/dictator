@@ -58,6 +58,7 @@ if (document.IsString("foo") && document.IsInt("bar") && document.IsString("embe
   - [Convert generic list to document list](#convert-generic-list-to-document-list)
 - [Property attributes](#property-attributes)
 - [Global settings](#global-settings)
+- [Schema validation](#schema-validation)
 
 ## Dictionary extension methods
 
@@ -513,3 +514,49 @@ Classes which are meant to have their properties converted to or from document f
 - `Dictator.Settings.MergeBehavior` - Global documents merge behavior (default is set to `MergeBehavior.OverwriteFields`).
 - `Dictator.Settings.DateTimeFormat` - Global DateTime serialization format (default is set to `DateTimeFormat.Object`).
 - `Dictator.Settings.DateTimeStringFormat` - Global DateTime string format which will be used when serializing DateTime object in string format (default is set to `yyyy-MM-ddTHH:mm:ss.fffZ`).
+
+## Schema validation
+
+`Dictator.Schema` property returns `Schema` object which contains fluent API for constraint validation of document structure and values with following methods:
+
+- `MustHave(string fieldPath)` - Specifies field path which must exist in the document schema and must conform to further constraints.
+- `ShouldHave(string fieldPath)` - Specifies field path which if exists must conform to further constraints.
+- `NotNull()` - Previously specified field path cannot have null value.
+- `Type<T>()` - Previously specified field path value must be of specified type.
+- `Type(Type type)` - Previously specified field path value must be of specified type.
+- `Min(int minValue)` - Previously specified field path must have specified minimal value.
+- `Max(int maxValue)` - Previously specified field path must have specified maximal value.
+- `Range(int minValue, int maxValue)` - Previously specified field path must be in specified range.
+- `Size(int collectionSize)` - Previously specified field path must have specified number of items in collection.
+- `Match(string regex)` - Previously specified field path must match specified regular expression.
+- `Match(string regex, bool ignoreCase)` - Previously specified field path must match specified regular expression.
+- `Message(string errorMessage)` - Specifies custom error message if previous schema constraints were violated.
+- `Validate(Dictionary<string, object> document)` - Performs validation based on previous constraints on specified document.
+
+Schema validation example:
+
+```csharp
+// setup document to be validated
+var document = new Dictionary<string, object>()
+    .String("string1", "test1")
+    .List("list1", new List<int> { 1, 2, 3 });
+
+// setup schema constraints and validate document
+var validationResult = Dictator.Schema
+    .MustHave("string1").Type<string>().Min(3).Max(4)
+    .MustHave("list1").Size(5)
+    .Validate(document);
+
+if (!validationResult.IsValid)
+{
+    foreach (var violation in validationResult.Violations)
+    {
+        var violationMessage = violation.Message;
+    }
+}
+```
+
+More examples regarding schema validation can be found in following unit tests:
+- [SchemaValidationTests.cs](../src/Dictator/Dictator.Tests/Schema/SchemaValidationTests.cs).
+- [SchemaShouldHaveValidationTests.cs](../src/Dictator/Dictator.Tests/Schema/SchemaShouldHaveValidationTests.cs).
+- [SchemaMustHaveValidationTests.cs](../src/Dictator/Dictator.Tests/Schema/SchemaMustHaveValidationTests.cs).
