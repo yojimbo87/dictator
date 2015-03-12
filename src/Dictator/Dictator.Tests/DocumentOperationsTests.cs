@@ -55,11 +55,12 @@ namespace Dictator.Tests
             var doc1 = Dictator.New()
                 .String("foo", "string value")
                 .Int("bar", 12345)
+                .Object("null", null)
                 .String("baz.foo", "string value")
                 .Int("baz.bar", 123)
                 .String("baz.baz.foo", "string value");
             
-            Assert.AreEqual(doc1.Count, 3);
+            Assert.AreEqual(doc1.Count, 4);
             Assert.AreEqual(doc1.String("foo"), "string value");
             Assert.AreEqual(doc1.Int("bar"), 12345);
             Assert.AreEqual(doc1.String("baz.foo"), "string value");
@@ -68,9 +69,10 @@ namespace Dictator.Tests
             
             var clonedDocument = doc1.Clone();
             
-            Assert.AreEqual(clonedDocument.Count, 3);
+            Assert.AreEqual(clonedDocument.Count, 4);
             Assert.AreEqual(clonedDocument.String("foo"), "string value");
             Assert.AreEqual(clonedDocument.Int("bar"), 12345);
+            Assert.AreEqual(clonedDocument.Object("null"), null);
             Assert.AreEqual(clonedDocument.String("baz.foo"), "string value");
             Assert.AreEqual(clonedDocument.Int("baz.bar"), 123);
             Assert.AreEqual(clonedDocument.String("baz.baz.foo"), "string value");
@@ -82,16 +84,18 @@ namespace Dictator.Tests
                 .Int("baz.bar", 321)
                 .String("baz.baz.foo", "new string value");
             
-            Assert.AreEqual(doc1.Count, 3);
+            Assert.AreEqual(doc1.Count, 4);
             Assert.AreEqual(doc1.String("foo"), "string value");
             Assert.AreEqual(doc1.Int("bar"), 12345);
+            Assert.AreEqual(doc1.Object("null"), null);
             Assert.AreEqual(doc1.String("baz.foo"), "string value");
             Assert.AreEqual(doc1.Int("baz.bar"), 123);
             Assert.AreEqual(doc1.String("baz.baz.foo"), "string value");
             
-            Assert.AreEqual(clonedDocument.Count, 3);
+            Assert.AreEqual(clonedDocument.Count, 4);
             Assert.AreEqual(clonedDocument.String("foo"), "new string value");
             Assert.AreEqual(clonedDocument.Int("bar"), 54321);
+            Assert.AreEqual(clonedDocument.Object("null"), null);
             Assert.AreEqual(clonedDocument.Document("baz").Count, 2);
             Assert.IsFalse(clonedDocument.Has("baz.foo"));
             Assert.AreEqual(clonedDocument.Int("baz.bar"), 321);
