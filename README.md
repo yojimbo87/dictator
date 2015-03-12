@@ -557,6 +557,6 @@ if (!validationResult.IsValid)
 ```
 
 More examples regarding schema validation can be found in following unit tests:
-- [SchemaValidationTests.cs](../src/Dictator/Dictator.Tests/Schema/SchemaValidationTests.cs).
-- [SchemaShouldHaveValidationTests.cs](../src/Dictator/Dictator.Tests/Schema/SchemaShouldHaveValidationTests.cs).
-- [SchemaMustHaveValidationTests.cs](../src/Dictator/Dictator.Tests/Schema/SchemaMustHaveValidationTests.cs).
+- [SchemaValidationTests.cs](src/Dictator/Dictator.Tests/Schema/SchemaValidationTests.cs).
+- [SchemaShouldHaveValidationTests.cs](src/Dictator/Dictator.Tests/Schema/SchemaShouldHaveValidationTests.cs).
+- [SchemaMustHaveValidationTests.cs](src/Dictator/Dictator.Tests/Schema/SchemaMustHaveValidationTests.cs).
