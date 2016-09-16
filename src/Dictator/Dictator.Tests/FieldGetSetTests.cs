@@ -91,7 +91,7 @@ namespace Dictator.Tests
             
             Assert.AreEqual(guid.ToString(), doc1.Guid("guid1").ToString());
         }
-        
+
         [Test()]
         public void Should_set_and_get_string_fields()
         {

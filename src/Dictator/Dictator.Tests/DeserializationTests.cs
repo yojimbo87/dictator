@@ -250,5 +250,20 @@ namespace Dictator.Tests
             Assert.AreEqual(entity.MyColor2, doc.Enum<Color>("MyColor2"));
             Assert.AreEqual(entity.MyColor3, doc.Enum<Color>("MyColor3"));
         }
+
+        [Test()]
+        public void Should_deserialize_nullable()
+        {
+            var entity = new NullableEntity
+            {
+                Foo = 1,
+                Bar = null
+            };
+
+            var doc = Dictator.ToDocument(entity);
+
+            Assert.AreEqual(1, doc.Int("Foo"));
+            Assert.AreEqual(null, doc.Object("Bar"));
+        }
     }
 }
